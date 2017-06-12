@@ -1,7 +1,6 @@
 <?php
 require_once('header.php');
 check_permis($users->is_admin());
-$danhmucthanhpho = new DanhMucThanhPho();
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 if(isset($_GET['submit'])){
     $keysearch = isset($_GET['keysearch']) ? $_GET['keysearch'] : '';
@@ -17,7 +16,7 @@ if(isset($_GET['submit'])){
 <link href="assets/plugins/DataTables/extensions/Responsive/css/responsive.bootstrap.min.css" rel="stylesheet" />
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-danger">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-heading-btn">
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -45,7 +44,7 @@ if(isset($_GET['submit'])){
 <?php if($users_list): ?>
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-danger">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <div class="panel-heading-btn">
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
@@ -64,20 +63,14 @@ if(isset($_GET['submit'])){
                     <th class="text-center">ADMIN</th>
                     <th class="text-center">MANAGER</th>
                     <th class="text-center">USERS</th>
-                    <th><span class="fa fa-trash-o"></th>
-                    <th><span class="fa fa-pencil"></span></th>
+                    <th class="text-center"><span class="fa fa-trash-o"></th>
+                    <th class="text-center"><span class="fa fa-pencil"></span></th>
                 </tr>
                 </thead>
                 <?php 
                 $i =1;
                 foreach($users_list as $ul){
-                    /*if(isset($ul['diachi']) && $ul['diachi']){
-                        $danhmucthanhpho->id = $ul['id_dmthanhpho']; $ct = $danhmucthanhpho->get_one();
-                        $diachi = $ct['diachi'];
-                    } else { $diachi = ''; }*/
-                    //$diachi = isset($ul['diachi']) ? $ul['diachi'] : '';
-                    if($i%2==0) $class='eve'; else $class = 'odd';
-                    echo '<tr class="'.$class.'">';
+                    echo '<tr>';
                     echo '<td>'.$i.'</td>';
                     echo '<td>'.$ul['username'].'</td>';
                     echo '<td>'.$ul['hoten'].'</td>';
@@ -88,9 +81,9 @@ if(isset($_GET['submit'])){
                     if($ul['roles'] & ADMIN){
                         echo '<td></td>';
                     } else {
-                        echo '<td><a href="users_delete.html?id='.$ul['_id'].'" onclick="return confirm(\'Chắc chắn xoá?\');"><i class="fa fa-trash-o"></i></a></td>';
+                        echo '<td class="text-center"><a href="users_delete.html?id='.$ul['_id'].'" onclick="return confirm(\'Chắc chắn xoá?\');"><i class="fa fa-trash-o"></i></a></td>';
                     }
-                    echo '<td><a href="users_add.html?id='.$ul['_id'].'&act=edit"><i class="fa fa-pencil"></i></a></td>';
+                    echo '<td class="text-center"><a href="users_add.html?id='.$ul['_id'].'&act=edit"><i class="fa fa-pencil"></i></a></td>';
                     echo '</tr>';
                     $i++;
                 }

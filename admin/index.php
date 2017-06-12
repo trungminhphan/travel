@@ -4,7 +4,7 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 ?>
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 <!-- begin page-header -->
-<h1 class="page-header">TRANG QUẢN TRỊ SÀI GÒN TRAVEL</h1>
+<h1 class="page-header">TRANG QUẢN TRỊ TOURINSTYLE</h1>
 <div class="row">
 
 <div style="clear:both;"></div>

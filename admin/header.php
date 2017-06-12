@@ -19,10 +19,10 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>SÀI GÒN TRAVEL</title>
+	<title>TourInStyle</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-    <meta content="SÀI GÒN TRAVEL" />
-    <meta content="SÀI GÒN TRAVEL" />
+    <meta content="TourInStyle" />
+    <meta content="TourInStyle" />
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">-->
 	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -58,7 +58,7 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
 					} else {
 						echo '<img src="images/default_logo.png" alt="" height="30" align="left"/>';
 					}
-					?>&nbsp;&nbsp;&nbsp;SÀI GÒN TRAVEL
+					?>&nbsp;&nbsp;&nbsp;TourInStyle
 					</a>
 					<button type="button" class="navbar-toggle" data-click="top-menu-toggled">
 						<span class="icon-bar"></span>
@@ -111,34 +111,14 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
 	                    <span>DANH MỤC</span>
 	                </a>
 	                 <ul class="sub-menu">
-	                 	<!--<li class="divider"></li>
-                        <li><a href="danhmucthanhpho.html">Thành phố</a></li>-->
                         <li class="divider"></li>
-                        <li><a href="danhmuctintuc.html">Danh mục tin tức</a></li>
+                        <li><a href="danhmuctour.html">Danh mục Tour</a></li>
                         <li class="divider"></li>
-                        <li><a href="danhmucvideo.html">Danh mục Video</a></li>
-                        <li class="divider"></li>
-                        <li><a href="danhmucsanpham.html">Danh mục sản phẩm</a></li>
+                        <li><a href="danhmucdiemden.html">Danh mục điểm đến</a></li>
                         <li class="divider"></li>
                     </ul>
                 </li>
                 <?php endif; ?>
-                <li class="has-sub">
-                    <a href="#">
-                        <i class="fa fa-users"></i>
-                        <b class="caret pull-right"></b>
-                        <span>NGƯỜI CHƠI</span>
-                    </a>
-                    <ul class="sub-menu" style="width:270px;">
-                    <li><a href="nguoichoi.html">Duyệt điểm</a></li>
-	                <?php
-	                foreach($arr_loaidiem as $key => $value){
-	                	echo '<li class="divider"></li>';
-                        echo '<li><a href="nguoichoi_'.$key.'.html">'.$value.'</a></li>';
-	                }
-	                ?>
-                    </ul>
-                </li>
                 <li>
                     <a href="tintuc.html">
                         <i class="ion-calendar"></i>
@@ -146,42 +126,12 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
                     </a>
                 </li>
                 <li>
-                    <a href="video.html">
+                    <a href="tours.html">
                         <i class="fa fa-video-camera"></i> 
-                        <span>VIDEO</span>
+                        <span>TOUR</span>
                     </a>
                 </li>
-                <li>
-                    <a href="sanpham.html">
-                        <i class="fa fa-dropbox "></i> 
-                        <span>SẢN PHẨM</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="huongdan.html">
-                        <i class="fa fa-columns"></i> 
-                        <span>HƯỚNG DẪN</span>
-                    </a>
-                </li>
-                <li class="has-sub">
-                    <a href="#">
-                        <b class="caret pull-right"></b>
-                        <i class="fa fa-gears"></i> 
-                        <span>QUẢN LÝ</span>
-                    </a>
-                    <ul class="sub-menu">
-                        <li class="divider"></li>
-                        <li><a href="banner.html">Banner</a></li>
-                    	<li class="divider"></li>
-                        <li><a href="dangky.html">Đăng ký nhanh Tài khoản</a></li>
-                    	<li class="divider"></li>
-                        <li><a href="donhang.html">Đơn hàng</a></li>
-                    	<li class="divider"></li>
-                        <li><a href="hiepsi.html">Danh sách hiệp sĩ tổng thể</a></li>
-	                 	<li class="divider"></li>
-                        <li><a href="hiepsituan.html">Danh sách hiệp sĩ theo tuần</a></li>
-                    </ul>
-                </li>
+                
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>
                 </li>

@@ -378,4 +378,50 @@ function resize_image($file,
 
     return true;
   }
+function showCategories($categories, $id_parent = '', $char = '', $arr=array()){
+    foreach ($categories as $key => $item){
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item['id_parent'] == $id_parent){
+            echo '<option value="'.$item['_id'].'"'.(in_array($item['_id'], $arr) ? ' selected':'').'>';
+                echo $char . $item['ma'] .'. ' .$item['ten'];
+            echo '</option>';
+            // Xóa chuyên mục đã lặp
+            unset($categories[$key]);
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+            showCategories($categories, $item['_id'], $char.'---');
+        }
+    }
+}
+
+function showCategories_Tree($categories, $id_parent = '', $collect=''){
+  echo '<ul>';
+    foreach ($categories as $key => $item){
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item['id_parent'] == $id_parent){
+          echo '<li data-jstree=\'{"opened":true}\'>' . $item['ma'] .'. '.$item['ten'] . '<span>&nbsp;&nbsp;&nbsp;<a href="get.'.$collect.'.html?id='.$item['_id'].'&act=edit#modal-'.$collect.'" data-toggle="modal" class="sua'.$collect.'"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;<a href="get.'.$collect.'.html?id='.$item['_id'].'&act=del#modal-del'.$collect.'" data-toggle="modal" class="sua'.$collect.'" ><i class="fa fa-trash-o"></i></a></span>';
+            // Xóa chuyên mục đã lặp
+            unset($categories[$key]);
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+            showCategories_Tree($categories, $item['_id'], $collect);
+            echo '</li>';
+        }
+    }
+    echo '</ul>';
+}
+
+function showCategories_Menu($categories, $id_parent = '', $level=0){
+    echo '<ul id="nav" class="hidden-xs">';
+    foreach ($categories as $key => $item){
+        // Nếu là chuyên mục con thì hiển thị
+        if ($item['id_parent'] == $id_parent){
+          echo '<li class="level0 parent drop-menu">' . $item['ten'];
+            // Xóa chuyên mục đã lặp
+            unset($categories[$key]);
+            // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
+            showCategories_Tree($categories, $item['_id']);
+            echo '</li>';
+        }
+    }
+    echo '</ul>';
+}
 ?>

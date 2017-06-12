@@ -4,8 +4,7 @@ check_permis($users->is_admin());
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
-$gridfs = new GridFS();$danhmucthanhpho = new DanhMucThanhPho();
-$danhmucthanhpho_list = $danhmucthanhpho->get_all_list();
+$gridfs = new GridFS();
 $sum_roles = 0; $roles = 0; $password = '';$hinhanh = '';
 if(isset($_POST['submit'])){
 	$id = isset($_POST['id']) ? $_POST['id'] : '';
@@ -14,9 +13,7 @@ if(isset($_POST['submit'])){
     $password = isset($_POST['password']) ? $_POST['password'] : '';
     $roles = isset($_POST['roles']) ? $_POST['roles'] : '';
     $hoten = isset($_POST['hoten']) ? $_POST['hoten'] : '';
-    $namsinh = isset($_POST['namsinh']) ? $_POST['namsinh'] : '';
     $sodienthoai = isset($_POST['sodienthoai']) ? $_POST['sodienthoai'] : '';
-    $id_dmthanhpho = isset($_POST['id_dmthanhpho']) ? $_POST['id_dmthanhpho'] : '';
     $diachi = isset($_POST['diachi']) ? $_POST['diachi'] : '';
     $email = isset($_POST['email']) ? $_POST['email'] : '';
     if($roles){
@@ -49,9 +46,7 @@ if(isset($_POST['submit'])){
     $users->password = $password;
     $users->roles = $sum_roles;
     $users->hoten = $hoten;
-    $users->namsinh = $namsinh;
     $users->sodienthoai = $sodienthoai;
-    $users->id_dmthanhpho = $id_dmthanhpho;
     $users->diachi = $diachi;
     $users->email = $email;
     if($id && $act == 'edit'){
@@ -80,7 +75,6 @@ if($id){
 	$hoten = $edit_user['hoten'];
     $namsinh = isset($edit_user['namsinh']) ? $edit_user['namsinh'] : '';
     $sodienthoai = isset($edit_user['sodienthoai']) ? $edit_user['sodienthoai'] : '';
-    $id_dmthanhpho = isset($edit_user['id_dmthanhpho']) ? $edit_user['id_dmthanhpho'] : '';
     $diachi = isset($edit_user['diachi']) ? $edit_user['diachi'] : '';
     $email = isset($edit_user['email']) ? $edit_user['email'] : '';
     
@@ -138,27 +132,9 @@ if($id){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Năm sinh:</label>
-                    <div class="col-md-2">
-                        <input type="number" name="namsinh" value="<?php echo isset($namsinh) ? $namsinh : ''; ?>" placeholder="Năm sinh" class="form-control" data-parsley-required="true">
-                    </div>
-                    <label class="col-md-2 control-label">Số điện thoại:</label>
-                    <div class="col-md-2">
-                        <input type="text" name="sodienthoai" value="<?php echo isset($sodienthoai) ? $sodienthoai : ''; ?>" placeholder="Số điện thoại" class="form-control" data-parsley-required="true">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Thành phố:</label>
+                    <label class="col-md-3 control-label">Số điện thoại:</label>
                     <div class="col-md-6">
-                        <select name="id_dmthanhpho" id="id_dmthanhpho" class="select2" style="width:100%">
-                        <?php
-                        if($danhmucthanhpho_list){
-                            foreach($danhmucthanhpho_list as $tp){
-                                echo '<option value="'.$tp['_id'].'">'.$tp['ten'].'</option>';
-                            }
-                        }
-                        ?>
-                        </select>
+                        <input type="text" name="sodienthoai" value="<?php echo isset($sodienthoai) ? $sodienthoai : ''; ?>" placeholder="Số điện thoại" class="form-control" data-parsley-required="true">
                     </div>
                 </div>
                 <div class="form-group">
@@ -179,10 +155,10 @@ if($id){
 						<input type="checkbox" name="roles[]" data-render="switchery" data-theme="default"  value="1" <?php echo  ($roles & ADMIN) ? ' checked': ''; ?>>  ADMIN
             		</div>
                     <div class="col-md-2">
-                        <input type="checkbox" name="roles[]" value="8" data-render="switchery" data-theme="default" <?php echo  ($roles & MANAGER) ? ' checked': ''; ?>>  MANAGER
+                        <input type="checkbox" name="roles[]" value="2" data-render="switchery" data-theme="default" <?php echo  ($roles & MANAGER) ? ' checked': ''; ?>>  MANAGER
                     </div>
             		<div class="col-md-2">
-						<input type="checkbox" name="roles[]" value="2" data-render="switchery" data-theme="default" <?php echo  ($roles & USERS) ? ' checked': ''; ?>>  USERS
+						<input type="checkbox" name="roles[]" value="4" data-render="switchery" data-theme="default" <?php echo  ($roles & USERS) ? ' checked': ''; ?>>  USERS
             		</div>
             	</div>
             </div>

@@ -30,10 +30,10 @@ if(isset($_POST['submit'])){
 <!--<![endif]-->
 <head>
 	<meta charset="utf-8" />
-	<title>SÀI GÒN TRAVEL</title>
+	<title>TourInStyle</title>
 	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
-	<meta content="SÀI GÒN TRAVEL" />
-    <meta content="SÀI GÒN TRAVEL" />
+	<meta content="TourInStyle" />
+    <meta content="TourInStyle" />
 	<!-- ================== BEGIN BASE CSS STYLE ================== -->
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 	<link href="assets/plugins/jquery-ui/themes/base/minified/jquery-ui.min.css" rel="stylesheet" />
@@ -70,7 +70,7 @@ if(isset($_POST['submit'])){
                     <i class="fa fa-star fg-yellow"></i>
                     <i class="fa fa-star fg-yellow"></i>
                     <i class="fa fa-star fg-yellow"></i>
-                    SÀI GÒN TRAVEL</h4>
+                    TourInStyle</h4>
                 </div>
             </div>
             <!-- end news-feed -->
@@ -79,7 +79,7 @@ if(isset($_POST['submit'])){
                 <!-- begin login-header -->
                 <div class="login-header">
                     <div class="brand">
-                        <span class="fa fa-home"></span> SÀI GÒN TRAVEL
+                        <span class="fa fa-home"></span> TourInStyle
                         <small>ĐĂNG NHẬP HỆ THỐNG</small>
                     </div>
                     <div class="icon">
