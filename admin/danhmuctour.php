@@ -7,6 +7,9 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 ?>
 <link href="assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
+<link href="assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
+<link href="assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
+<link href="assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 <link href="assets/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
 <div class="row">
     <div class="col-md-12">
@@ -33,7 +36,7 @@ $danhmuctour_list = $danhmuctour->get_all_list();
     </div>
 </div>
 <div class="modal fade" id="modal-danhmuctour">
-<form action="post.danhmuctour.html" method="POST" class="form-horizontal" data-parsley-validate="true" name="congtyform">
+<form action="post.danhmuctour.html" method="POST" class="form-horizontal" data-parsley-validate="true" id="tintucform">
     <input type="hidden" name="id" id="id" />
     <input type="hidden" name="act" id="act" />
     <input type="hidden" name="url" id="url" value="<?php echo $_SERVER['REQUEST_URI']; ?>">
@@ -61,7 +64,7 @@ $danhmuctour_list = $danhmuctour->get_all_list();
                             showCategories($list_tree);
                         }
                         ?>
-                    </select>                       
+                    </select>                    
                     </div>
                 </div>
                 <div class="form-group">
@@ -70,6 +73,17 @@ $danhmuctour_list = $danhmuctour->get_all_list();
                         <textarea name="mota" id='mota' class="form-control" placeholder="Mô tả" rows="5"></textarea>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Chọn hình ảnh</label>
+                    <div class="col-md-3">
+                        <span class="btn btn-primary fileinput-button">
+                            <i class="fa fa-file-image-o"></i>
+                            <span>Chọn hình ảnh...</span>
+                            <input type="file" name="hinhanh_files[]" accept="image/*" multiple class="hinhanh_dinhkem">
+                        </span>
+                    </div>
+                </div>
+                <div id="hinhanh_list"></div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
@@ -88,7 +102,7 @@ $danhmuctour_list = $danhmuctour->get_all_list();
                 <h4 class="modal-title">Chắc chắn muốn xoá?</h4>
             </div>
             <div class="modal-body">
-                <h3>Nếu xoá sẽ xoá tất cả đơn vị trực thuộc?</h3>
+                <h3>Nếu xoá sẽ xoá tất cả sẽ không khôi phục được?</h3>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Đóng</a>
@@ -109,11 +123,13 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 <script src="assets/plugins/parsley/dist/parsley.js"></script>
 <script src="assets/js/table-manage-default.demo.min.js"></script>
 <script src="assets/plugins/jstree/dist/jstree.min.js"></script>
+<script type="text/javascript" src="assets/js/trangchu.js"></script>
 <script src="assets/js/ui-tree.demo.min.js"></script>
 <script src="assets/js/apps.min.js"></script>
 <!-- ================== END PAGE LEVEL JS ================== -->
 <script>
     $(document).ready(function() {
+        upload_hinhanh();delete_file();
         $(".themdanhmuctour").click(function(){
             $("#id").val("");$("#act").val("");
         });
@@ -138,8 +154,8 @@ $danhmuctour_list = $danhmuctour->get_all_list();
                     $("#id").val(data.id); $("#act").val(data.act);
                     $("#ten").val(data.ten);
                     $("#id_parent").val(data.id_parent);$("#id_parent").select2();
-                    $("#ma").val(data.ma);
                     $("#mota").val(data.mota);
+                    $("#hinhanh_list").html(data.hinhanh);delete_file();
                 }
             });
         });

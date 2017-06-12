@@ -8,6 +8,7 @@ class DanhMucTour {
     public $ten = '';
     public $id_parent = '';
     public $mota = '';
+    public $hinhanh = '';
 
     public function __construct(){
         $this->_mongo = DBConnect::init();
@@ -31,7 +32,8 @@ class DanhMucTour {
         $query = array(
             'ten' => $this->ten,
             'id_parent' => $this->id_parent ? new MongoId($this->id_parent) : '',
-            'mota' => $this->mota
+            'mota' => $this->mota,
+            'hinhanh' => $this->hinhanh
         );
         return $this->_collection->insert($query);
     }
@@ -40,7 +42,8 @@ class DanhMucTour {
         $query = array('$set' => array(
             'ten' => $this->ten,
             'id_parent' => $this->id_parent ? new MongoId($this->id_parent) : '',
-            'mota' => $this->mota));
+            'mota' => $this->mota,
+            'hinhanh' => $this->hinhanh));
         $condition = array('_id' => new MongoId($this->id));
         return $this->_collection->update($condition, $query);
     }

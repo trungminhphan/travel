@@ -116,6 +116,8 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
                         <li class="divider"></li>
                         <li><a href="danhmucdiemden.html">Danh mục điểm đến</a></li>
                         <li class="divider"></li>
+                        <li><a href="danhmuctintuc.html">Danh mục tin tức</a></li>
+                        <li class="divider"></li>
                     </ul>
                 </li>
                 <?php endif; ?>
