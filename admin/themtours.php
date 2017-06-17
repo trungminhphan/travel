@@ -21,7 +21,8 @@ $danhmuctours_list = $danhmuctours->get_all_list();
 $danhmucdiemden_list = $danhmucdiemden->get_all_list();
 if($id && $act == 'edit'){
     $tours->id = $id; $t = $tours->get_one();
-    $id_danhmuctours = $t['id_danhmuctours'];
+    $id_danhmuctour = $t['id_danhmuctour'];
+    $id_danhmucdiemden = $t['id_danhmucdiemden'];
     $tieude = $t['tieude'];
     $mota = $t['mota'];
     $noidung = $t['noidung'];
@@ -33,7 +34,8 @@ if($id && $act == 'edit'){
 
 if(isset($_POST['submit'])){
     $id = isset($_POST['id']) ? $_POST['id'] : '';
-    $id_danhmuctours = isset($_POST['id_danhmuctours']) ? $_POST['id_danhmuctours'] : '';
+    $id_danhmuctour = isset($_POST['id_danhmuctour']) ? $_POST['id_danhmuctour'] : '';
+    $id_danhmucdiemden = isset($_POST['id_danhmucdiemden']) ? $_POST['id_danhmucdiemden'] : '';
     $act = isset($_POST['act']) ? $_POST['act'] : '';
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
     $mota = isset($_POST['mota']) ? $_POST['mota'] : '';
@@ -52,7 +54,8 @@ if(isset($_POST['submit'])){
         }
     }
     $arr_hinhanh = sort_array_1($arr_hinhanh, 'orders', SORT_ASC);
-    $tours->id_danhmuctours = $id_danhmuctours;
+    $tours->id_danhmuctour = $id_danhmuctour;
+    $tours->id_danhmucdiemden = $id_danhmucdiemden;
     $tours->tieude = $tieude;
     $tours->mota = $mota;
     $tours->noidung = $noidung;
@@ -79,7 +82,7 @@ if(isset($_POST['submit'])){
 <link href="assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
 <link href="assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
 <link href="assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
-<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" class="form-horizontal" data-parsley-validate="true" name="bannerform" id="toursform" enctype="multipart/form-data">
+<form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" class="form-horizontal" data-parsley-validate="true" name="bannerform" id="tintucform" enctype="multipart/form-data">
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">

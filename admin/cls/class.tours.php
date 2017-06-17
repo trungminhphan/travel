@@ -30,11 +30,11 @@ class Tours {
 	}
 
 	public function get_list_to_parent(){
-		$query = array('id_danhmuctintuc' => $this->id_danhmuctintuc);
+		$query = array('id_danhmuctour' => $this->id_danhmuctour);
 		return $this->_collection->find($query)->limit(20)->sort(array('orders' => 1, 'date_post'=>-1));	
 	}
 
-	public function get_tintucmoi(){
+	public function get_tourmoi(){
 		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
 	}
 
@@ -44,7 +44,7 @@ class Tours {
 	}
 
 	public function get_list_home($dmtt){
-		$query = array('id_danhmuctintuc' => $dmtt, 'hienthi' => 1);
+		$query = array('id_danhmuctour' => $dmtt, 'hienthi' => 1);
 		return $this->_collection->find($query)->limit(3);
 	}
 
@@ -57,7 +57,8 @@ class Tours {
 			'hinhanh' => $this->hinhanh,
 			'hienthi' => intval($this->hienthi),
 			'orders' => intval($this->orders),
-			'id_danhmuctintuc' => $this->id_danhmuctintuc,
+			'id_danhmuctour' => $this->id_danhmuctour,
+			'id_danhmucdiemden' => $this->id_danhmucdiemden,
 			'date_post' => new MongoDate()
 		);
 		return $this->_collection->insert($query);
@@ -72,7 +73,8 @@ class Tours {
 			'hinhanh' => $this->hinhanh,
 			'hienthi' => intval($this->hienthi),
 			'orders' => intval($this->orders),
-			'id_danhmuctintuc' => $this->id_danhmuctintuc,
+			'id_danhmuctour' => $this->id_danhmuctour,
+			'id_danhmucdiemden' => $this->id_danhmucdiemden,
 			'date_post' => new MongoDate()
 		));
 		$condition = array('_id' => new MongoId($this->id));
