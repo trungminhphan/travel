@@ -25,6 +25,7 @@ if($id && $act == 'edit'){
     $tieude = $t['tieude'];
     $mota = $t['mota'];
     $noidung = $t['noidung'];
+    $giave = $t['giave'];
     $hinhanh = $t['hinhanh'];
     $hienthi = $t['hienthi'];
     $orders = isset($t['orders']) ? $t['orders'] : 0;
@@ -37,6 +38,7 @@ if(isset($_POST['submit'])){
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
     $mota = isset($_POST['mota']) ? $_POST['mota'] : '';
     $noidung = isset($_POST['noidung']) ? $_POST['noidung'] : '';
+    $giave = isset($_POST['giave']) ? $_POST['giave'] : '';
     $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : '';
     $orders = isset($_POST['orders']) ? $_POST['orders'] : '';
     $arr_hinhanh = array();
@@ -54,6 +56,7 @@ if(isset($_POST['submit'])){
     $tours->tieude = $tieude;
     $tours->mota = $mota;
     $tours->noidung = $noidung;
+    $tours->giave = $giave;
     $tours->hinhanh = $arr_hinhanh;
     $tours->hienthi = $hienthi;
     $tours->video = $video;
@@ -129,9 +132,15 @@ if(isset($_POST['submit'])){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Nội dung chi tiết Tour</label>
+                    <label class="col-md-3 control-label">Thông tin hành trình</label>
                     <div class="col-md-9">
                         <textarea class="form-control" name="noidung" id="noidung" placeholder="Mô tả" rows="5" data-parsley-required="true"><?php echo isset($noidung) ? $noidung : ''; ?></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Thông tin giá vé</label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" name="giave" id="giave" placeholder="Mô tả" rows="5" data-parsley-required="true"><?php echo isset($giave) ? $giave : ''; ?></textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -210,6 +219,12 @@ if(isset($_POST['submit'])){
         });
         <?php endif; ?>
         CKEDITOR.replace('noidung', {
+            filebrowserBrowseUrl: 'assets/plugins/ckfinder/ckfinder.html',
+            filebrowserUploadUrl: 'assets/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+            filebrowserWindowWidth: '1000',
+            filebrowserWindowHeight: '700'
+        });
+        CKEDITOR.replace('giave', {
             filebrowserBrowseUrl: 'assets/plugins/ckfinder/ckfinder.html',
             filebrowserUploadUrl: 'assets/plugins/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
             filebrowserWindowWidth: '1000',

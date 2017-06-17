@@ -8,6 +8,7 @@ class Tours {
 	public $tieude = '';
 	public $mota = '';
 	public $noidung = '';
+	public $giave = '';
 	public $hinhanh = '';
 	public $hienthi = 0;
 	public $orders = 0;
@@ -52,6 +53,7 @@ class Tours {
 			'tieude' => $this->tieude,
 			'mota' => $this->mota,
 			'noidung' => $this->noidung,
+			'giave' => $this->giave,
 			'hinhanh' => $this->hinhanh,
 			'hienthi' => intval($this->hienthi),
 			'orders' => intval($this->orders),
@@ -66,6 +68,7 @@ class Tours {
 			'tieude' => $this->tieude,
 			'mota' => $this->mota,
 			'noidung' => $this->noidung,
+			'giave' => $this->giave,
 			'hinhanh' => $this->hinhanh,
 			'hienthi' => intval($this->hienthi),
 			'orders' => intval($this->orders),
