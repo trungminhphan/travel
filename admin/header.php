@@ -130,7 +130,7 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
                 <li>
                     <a href="tours.html">
                         <i class="fa fa-video-camera"></i> 
-                        <span>TOUR</span>
+                        <span>TOURS</span>
                     </a>
                 </li>
                 

@@ -388,7 +388,7 @@ function showCategories($categories, $id_parent = '', $char = '', $arr=array()){
             // Xóa chuyên mục đã lặp
             unset($categories[$key]);
             // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-            showCategories($categories, $item['_id'], $char.'---');
+            showCategories($categories, $item['_id'], $char.'|---');
         }
     }
 }
