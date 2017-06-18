@@ -19,19 +19,7 @@ if($id && $act=='del'){
 $list = $tours->get_all_list();
 $danhmuctours_list = $danhmuctours->get_all_list();
 $danhmucdiemden_list = $danhmucdiemden->get_all_list();
-if($id && $act == 'edit'){
-    $tours->id = $id; $t = $tours->get_one();
-    $id_danhmuctour = $t['id_danhmuctour'];
-    $id_danhmucdiemden = $t['id_danhmucdiemden'];
-    $tieude = $t['tieude'];
-    $mota = $t['mota'];
-    $noidung = $t['noidung'];
-    $giave = $t['giave'];
-    $hinhanh = $t['hinhanh'];
-    $hienthi = $t['hienthi'];
-    $orders = isset($t['orders']) ? $t['orders'] : 0;
-}
-
+$id_danhmucdiemden = ''; $id_danhmuctour='';
 if(isset($_POST['submit'])){
     $id = isset($_POST['id']) ? $_POST['id'] : '';
     $id_danhmuctour = isset($_POST['id_danhmuctour']) ? $_POST['id_danhmuctour'] : '';
@@ -72,6 +60,19 @@ if(isset($_POST['submit'])){
         if($tours->insert()) transfers_to('tours.html?msg=Thêm thành công');
     }
 }
+
+if($id && $act == 'edit'){
+    $tours->id = $id; $t = $tours->get_one();
+    $id_danhmuctour = $t['id_danhmuctour'];
+    $id_danhmucdiemden = $t['id_danhmucdiemden'];
+    $tieude = $t['tieude'];
+    $mota = $t['mota'];
+    $noidung = $t['noidung'];
+    $giave = $t['giave'];
+    $hinhanh = $t['hinhanh'];
+    $hienthi = $t['hienthi'];
+    $orders = isset($t['orders']) ? $t['orders'] : 0;
+}
 ?>
 <link href="assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" />
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
@@ -97,11 +98,11 @@ if(isset($_POST['submit'])){
                 <div class="form-group">
                     <label class="col-md-3 control-label">Loại Tours</label>
                     <div class="col-md-9">
-                    <select name="id_danhmuctours[]" id="id_danhmuctours" multiple="multiple" class="form-control select2" style="width:100%">
+                    <select name="id_danhmuctour[]" id="id_danhmuctour" multiple="multiple" class="form-control select2" style="width:100%">
                     <?php
                         if($danhmuctours_list){
                             $list_tree = iterator_to_array($danhmuctours_list);
-                            showCategories($list_tree);
+                            showCategories($list_tree,'','',$id_danhmuctour);
                         }
                     ?>
                     </select>
@@ -114,7 +115,7 @@ if(isset($_POST['submit'])){
                     <?php
                         if($danhmucdiemden_list){
                             $list_tree = iterator_to_array($danhmucdiemden_list);
-                            showCategories($list_tree);
+                            showCategories($list_tree,'','',$id_danhmucdiemden);
                         }
                     ?>
                     </select>

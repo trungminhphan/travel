@@ -388,11 +388,10 @@ function showCategories($categories, $id_parent = '', $char = '', $arr=array()){
             // Xóa chuyên mục đã lặp
             unset($categories[$key]);
             // Tiếp tục đệ quy để tìm chuyên mục con của chuyên mục đang lặp
-            showCategories($categories, $item['_id'], $char.'|---');
+            showCategories($categories, $item['_id'], $char.'|---', $arr);
         }
     }
 }
-
 function showCategories_Tree($categories, $id_parent = '', $collect=''){
   echo '<ul>';
     foreach ($categories as $key => $item){

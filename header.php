@@ -6,6 +6,8 @@ require_once('admin/inc/functions.inc.php');
 require_once('admin/inc/config.inc.php');
 $danhmuctour = new DanhMucTour();
 $danhmuctour_list = $danhmuctour->get_list_condition(array('id_parent' => ''));
+$url = isset($_SERVER['REDIRECT_URL']) ? $_SERVER['REDIRECT_URL'] : 'index.html'; $a = explode("/", $url); $l = end($a);
+$id = isset($_GET['id']) ? $_GET['id'] : '';
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -121,17 +123,19 @@ $danhmuctour_list = $danhmuctour->get_list_condition(array('id_parent' => ''));
 				</div>
 				<nav class="width-navigation">
 					<ul class="nav navbar-nav menu-main-menu side-nav" id="mobile-demo">
-						<li class="current-menu-ancestor current-menu-parent">
+						<li class="<?php echo $l == 'index.html' ? 'current-menu-ancestor' : ''; ?>">
 							<a href="index.html">Trang chủ</a>
 						</li>
 						<?php 
 						if($danhmuctour_list){
 							foreach($danhmuctour_list as $t){
-								echo '<li><a href="tours.html?id='.$t['_id'].'">'.$t['ten'].'</a></li>';
+								echo '<li class="'.($l=='tours.html' && $id==$t['_id'] ? 'current-menu-ancestor' :'').'">
+									<a href="tours.html?id='.$t['_id'].'">'.$t['ten'].'</a>
+								</li>';
 							}
 						}
 						?>
-						<li><a href="lienhe.html">Liên hệ</a></li>
+						<li class="<?php echo $l == 'lienhe.html' ? 'current-menu-ancestor' : ''; ?>"><a href="lienhe.html">Liên hệ</a></li>
 					</ul>
 				</nav>
 			</div>
