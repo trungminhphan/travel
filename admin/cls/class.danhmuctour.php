@@ -28,6 +28,17 @@ class DanhMucTour {
         return $this->_collection->findOne($query);
     }
 
+    public function get_tours($arr){
+        $str_arr = array();
+        if($arr){
+            foreach ($arr as $key => $value) {
+                $this->id = $value; $t = $this->get_one();
+                array_push($str_arr, $t['ten']);
+            }
+        }
+        return implode(", ", $str_arr);
+    }
+
     public function insert(){
         $query = array(
             'ten' => $this->ten,

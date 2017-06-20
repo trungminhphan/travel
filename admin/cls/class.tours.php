@@ -3,7 +3,6 @@ class Tours {
 	const COLLECTION = 'tours';
 	private $_mongo;
 	private $_collection;
-
 	public $id = '';
 	public $tieude = '';
 	public $mota = '';

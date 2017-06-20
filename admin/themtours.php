@@ -162,7 +162,7 @@ if($id && $act == 'edit'){
                     <div class="col-md-3">
                         <span class="btn btn-primary fileinput-button">
                             <i class="fa fa-file-image-o"></i>
-                            <span>Chọn hình ảnh tốt nhất (800px x 600px)...</span>
+                            <span>Chọn hình ảnh tốt nhất (950px x 700px)...</span>
                             <input type="file" name="hinhanh_files[]" multiple accept="image/*" class="hinhanh_dinhkem">
                         </span>
                     </div>
