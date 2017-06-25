@@ -45,9 +45,9 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 						<aside id="text-7" class="widget widget_text">
 							<div class="textwidget">
 								<ul class="top_bar_info clearfix">
-									<li><i class="fa fa-phone"></i> 0123456789</li>
+									<li><i class="fa fa-phone"></i>+84 8 222 90000</li>
 									<li class="hidden-info">
-										<i class="fa fa-map-marker"></i> 1010 Quận 1, Tp. Hồ Chí Minh
+										<i class="fa fa-map-marker"></i> 107G, Trương Định, Phường 6, Quận 3, TPHCM
 									</li>
 								</ul>
 							</div>

@@ -1,6 +1,5 @@
 <?php 
 require_once('header.php'); 
-
 ?>
 <div class="site wrapper-content">
 	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
@@ -13,23 +12,20 @@ require_once('header.php');
 			<div class="row">
 				<div class="site-main col-sm-9 alignleft">
 					<div class="video-container">
-						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d29636.110113062492!2d105.43604894148592!3d10.358238189867725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310a7310e98e9f37%3A0x1fd86afb40dd076e!2zTMawdSBI4buvdSBQaMaw4bubYywgTeG7uSBQaMaw4bubYywgVHAuIExvbmcgWHV5w6puLCBBbiBHaWFuZywgVmlldG5hbQ!5e0!3m2!1sen!2s!4v1497689157326" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d979.8572038186165!2d106.68770082659252!3d10.778432262104166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f3aacf95023%3A0xe3d378a76d33bf51!2zMTA3RyBUcsawxqFuZyDEkOG7i25oLCBwaMaw4budbmcgNiwgUXXhuq1uIDMsIEjhu5MgQ2jDrSBNaW5oLCBWaWV0bmFt!5e0!3m2!1sen!2s!4v1498401375468" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
 					</div>
 					<div class="pages_content padding-top-4x">
-						<h4>THÔNG TIN LIÊN HỆ</h4>
+						<h4>TourinStyle Travel Service Limited Company</h4>
 						<div class="contact_infor">
 							<ul>
 								<li><label><i class="fa fa-map-marker"></i>ĐỊA CHỈ</label>
-									<div class="des">Số 1, Nguyễn Trãi, Quận 1, TPHCM</div>
+									<div class="des">107G, Trương Định, Phường 6, Quận 3, TPHCM</div>
 								</li>
 								<li><label><i class="fa fa-phone"></i>ĐIỆN THOẠI</label>
-									<div class="des">+012345678 (tour) | +0123456789 (ticketing)</div>
-								</li>
-								<li><label><i class="fa fa-print"></i>FAX</label>
-									<div class="des">+012345678 (tour) | +123456789 (ticketing)</div>
+									<div class="des">+84 8 222 90000</div>
 								</li>
 								<li><label><i class="fa fa-envelope"></i>EMAIL</label>
-									<div class="des">tours@physcode.com (tour) | tickets@physcode.com (ticketing)</div>
+									<div class="des">trang.nguyen@tourinstyle.vn</div>
 								</li>
 								<li>
 									<label><i class="fa fa-clock-o"></i>GIỜ LÀM VIỆC</label>

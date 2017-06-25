@@ -2,7 +2,7 @@
 		<div class="container wrapper-copyright">
 			<div class="row">
 				<div class="col-sm-6">
-					<div><p>Copyright © 2017. TourInStyle.</p></div>
+					<div><p>Copyright © 2017. TourinStyle Travel Service Limited Company.</p></div>
 				</div>
 				<div class="col-sm-6">
 					<aside id="text-5" class="widget_text">
