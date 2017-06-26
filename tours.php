@@ -17,7 +17,6 @@ $tours_list = $tours->get_list_condition($query);
 			<div class="row">
 				<div class="site-main col-sm-9 alignright">
 					<ul class="tours products wrapper-tours-slider">
-						<?php for($i=1; $i<=12; $i++): ?>
 						<?php foreach($tours_list as $tour): ?>
 						<li class="item-tour col-md-4 col-sm-6 product">
 							<div class="item_border item-product">
@@ -42,7 +41,6 @@ $tours_list = $tours->get_list_condition($query);
 							</div>
 						</li>
 						<?php endforeach; ?>
-						<?php endfor; ?>
 					</ul>
 					<!--<div class="navigation paging-navigation" role="navigation">
 						<ul class="page-numbers">

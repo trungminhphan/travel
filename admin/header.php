@@ -133,7 +133,12 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
                         <span>TOURS</span>
                     </a>
                 </li>
-                
+                <li>
+                    <a href="banner.html">
+                        <i class="fa fa-puzzle-piece"></i> 
+                        <span>BANNER</span>
+                    </a>
+                </li>
                 <li class="menu-control menu-control-right">
                     <a href="#" data-click="next-menu"><i class="fa fa-angle-right"></i></a>
                 </li>

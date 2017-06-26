@@ -1,34 +1,26 @@
 <?php
 require_once('header.php');
-$tours = new Tours();
+$tours = new Tours(); $banner = new Banner(); $b = $banner->get_one();
 $tours_list = $tours->get_all_list();
 ?>
 <div class="site wrapper-content">
+	<?php if($b) : ?>
 	<div class="home-content" role="main">
 		<div class="top_site_main"></div>
 		<div id="home-page-slider-image" class="carousel slide" data-ride="carousel">
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
-				<div class="item active">
-					<img src="images/home/s1.png" alt="Home Slider 1">
+			<?php foreach($b['banner'] as $k => $v){
+				echo '<div class="item '.($k==0 ? 'active' :'').'">
+					<img src="'.$target_banner . $v['aliasname'].'" alt="'.$v['mota'].'">
 					<div class="carousel-caption content-slider">
 						<div class="container">
-						<h2>WONDERFUL BLUE BEACH </h2>
-						<p>TourInStyle</p>
-						<p><a href="tours.html" class="btn btn-slider">VIEW TOURS </a></p>
+						'.($v['mota'] ? '<h2>'.$v['mota'].'</h2>' : '').'
+						'. ($v['link'] ? '<p><a href="'.$v['link'].'" class="btn btn-slider"> Xem chi tiết</a></p>' : '').'
 						</div>
 					</div>
-				</div>
-				<div class="item">
-					<img src="images/home/s2.png" alt="Home Slider 2">
-					<div class="carousel-caption content-slider">
-						<div class="container">
-						<h2>WONDERFUL BLUE BEACH </h2>
-						<p>TourInStyle</p>
-						<p><a href="tours.html" class="btn btn-slider">VIEW TOURS </a></p>
-					</div>
-					</div>
-				</div>
+				</div>';
+				} ?>
 			</div>
 			<!-- Controls -->
 			<a class="carousel-control-left" href="#home-page-slider-image" data-slide="prev">
@@ -39,19 +31,19 @@ $tours_list = $tours->get_all_list();
 			</a>
 		</div>
 	</div>
+	<?php endif; ?>
 	<?php if($tours_list): ?>
 	<section class="content-area">
 		<div class="container">
 			<div class="row">
 				<div class="site-main col-sm-9 alignright">
 					<ul class="tours products wrapper-tours-slider">
-						<?php for($i=1; $i<=12; $i++): ?>
 						<?php foreach($tours_list as $tour): ?>
 						<li class="item-tour col-md-4 col-sm-6 product">
 							<div class="item_border item-product">
 								<div class="post_images">
 									<a href="tour_detail.html?id=<?php echo $tour['_id'];?>">
-									<?php if(isset($tour['hinhanh']) && $tour['hinhanh'][0]['aliasname']): ?>
+									<?php if(isset($tour['hinhanh'][0]) && $tour['hinhanh'][0]['aliasname']): ?>
 										<img width="430" height="305" src="<?php echo $target_images . $tour['hinhanh'][0]['aliasname']; ?>" alt="<?php echo $tour['tieude']; ?>" title="<?php echo $tour['tieude']; ?>">
 									<?php else : ?>
 										<img width="430" height="305" src="images/tour/430x305/tour-1.jpg" alt="<?php echo $tour['tieude']; ?>" title="<?php echo $tour['tieude']; ?>">
@@ -70,7 +62,6 @@ $tours_list = $tours->get_all_list();
 							</div>
 						</li>
 						<?php endforeach; ?>
-						<?php endfor; ?>
 					</ul>
 					<!--<div class="navigation paging-navigation" role="navigation">
 						<ul class="page-numbers">

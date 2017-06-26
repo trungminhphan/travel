@@ -20,16 +20,16 @@ $danhmuctour = new DanhMucTour();
 								<h1><?php echo $t['tieude']; ?></h1>
 							</div>
 						</div>
-						<div class="tour_after_title">
-							<div class="meta_date">
-								<span><?php echo $t['mota']; ?></span>
-							</div>
-							<div class="meta_values">
-								<span>Loại Tours:</span>
-								<div class="value">
-									<?php echo $danhmuctour->get_tours($t['id_danhmuctour']); ?>
-								</div>
-							</div>
+						<div class="tour_after_title" style="text-align:justify;">
+							<?php echo $t['mota']; ?>
+							<p style="margin-top:20px;">
+								<b>Giá Tour:</b> <?php echo format_number($t['giatour']); ?> VNĐ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<b>Ngày khởi hành:</b> <?php echo date("d/m/Y", $t['ngaykhoihanh']->sec); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<b>Ngày kết thúc:</b> <?php echo date("d/m/Y", $t['ngayketthuc']->sec); ?>
+							</p>
+							<p style="margin-top:20px;">
+								<b>Loại Tour:</b> <?php echo $danhmuctour->get_tours($t['id_danhmuctour']); ?>
+							</p>
 						</div>
 						<?php if($t['hinhanh']): ?>
 						<div id="slider" class="flexslider">

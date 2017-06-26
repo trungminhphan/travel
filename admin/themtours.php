@@ -26,6 +26,9 @@ if(isset($_POST['submit'])){
     $id_danhmucdiemden = isset($_POST['id_danhmucdiemden']) ? $_POST['id_danhmucdiemden'] : '';
     $act = isset($_POST['act']) ? $_POST['act'] : '';
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
+    $giatour = isset($_POST['giatour']) ? $_POST['giatour'] : '';
+    $ngaykhoihanh = isset($_POST['ngaykhoihanh']) ? $_POST['ngaykhoihanh'] : '';
+    $ngayketthuc = isset($_POST['ngayketthuc']) ? $_POST['ngayketthuc'] : '';
     $mota = isset($_POST['mota']) ? $_POST['mota'] : '';
     $noidung = isset($_POST['noidung']) ? $_POST['noidung'] : '';
     $giave = isset($_POST['giave']) ? $_POST['giave'] : '';
@@ -45,6 +48,9 @@ if(isset($_POST['submit'])){
     $tours->id_danhmuctour = $id_danhmuctour;
     $tours->id_danhmucdiemden = $id_danhmucdiemden;
     $tours->tieude = $tieude;
+    $tours->giatour = $giatour;
+    $tours->ngaykhoihanh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
+    $tours->ngayketthuc = $ngayketthuc  ? new MongoDate(convert_date_yyyy_mm_dd($ngayketthuc)) : '';
     $tours->mota = $mota;
     $tours->noidung = $noidung;
     $tours->giave = $giave;
@@ -66,6 +72,9 @@ if($id && $act == 'edit'){
     $id_danhmuctour = $t['id_danhmuctour'];
     $id_danhmucdiemden = $t['id_danhmucdiemden'];
     $tieude = $t['tieude'];
+    $giatour = isset($t['giatour']) ? $t['giatour'] : '';
+    $ngaykhoihanh = isset($t['ngaykhoihanh']) ? date("d/m/Y", $t['ngaykhoihanh']->sec) : '';
+    $ngayketthuc = isset($t['ngayketthuc']) ? date("d/m/Y", $t['ngayketthuc']->sec) : '';
     $mota = $t['mota'];
     $noidung = $t['noidung'];
     $giave = $t['giave'];
@@ -80,9 +89,8 @@ if($id && $act == 'edit'){
 <link href="assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
 <link href="assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 <link href="assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
-<link href="assets/plugins/jquery-file-upload/blueimp-gallery/blueimp-gallery.min.css" rel="stylesheet" />
-<link href="assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
-<link href="assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link href="assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" class="form-horizontal" data-parsley-validate="true" name="bannerform" id="tintucform" enctype="multipart/form-data">
 <div class="row">
 	<div class="col-md-12">
@@ -123,10 +131,24 @@ if($id && $act == 'edit'){
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tên Tour</label>
-                    <div class="col-md-9">
+                    <div class="col-md-5">
                         <input type="hidden" name="id" id="id" value="<?php echo isset($id) ? $id : '';?>">
                         <input type="hidden" name="act" id="act" value="<?php echo isset($act) ? $act : ''; ?>">
                         <input class="form-control" type="text" id="tieude" name="tieude" placeholder="Tiêu đề" data-parsley-required="true" value="<?php echo isset($tieude) ? $tieude : ''; ?>" />
+                    </div>
+                    <label class="col-md-2 control-label">Giá Tour</label>
+                    <div class="col-md-2">
+                        <input class="form-control" type="text" id="giatour" name="giatour" placeholder="Giá Tour" data-parsley-required="true" value="<?php echo isset($giatour) ? $giatour : ''; ?>" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Ngày khởi hành</label>
+                    <div class="col-md-3">
+                        <input type="text" name="ngaykhoihanh" id="ngaykhoihanh" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : date("d/m/Y"); ?>"/>
+                    </div>
+                    <label class="col-md-3 control-label">Ngày kết thúc</label>
+                    <div class="col-md-3">
+                        <input type="text" name="ngayketthuc" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngayketthuc) ? $ngayketthuc : date("d/m/Y"); ?>"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -205,6 +227,8 @@ if($id && $act == 'edit'){
 <script src="assets/plugins/parsley/dist/parsley.js"></script>
 <script type="text/javascript" src="assets/js/trangchu.js"></script>
 <script src="assets/plugins/switchery/switchery.min.js"></script>
+<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="assets/plugins/input-mask/jquery.inputmask.js"></script>
 <script src="assets/js/form-slider-switcher.demo.min.js"></script>
 <script src="assets/plugins/ckeditor/ckeditor.js"></script>
 <script src="assets/js/apps.min.js"></script>
@@ -213,6 +237,8 @@ if($id && $act == 'edit'){
     $(document).ready(function() {
         upload_hinhanh();delete_file();
         $(".select2").select2();
+        $(".ngaythangnam").datepicker({todayHighlight:!0});
+        $(".ngaythangnam").inputmask();
         <?php if(isset($msg) && $msg) : ?>
         $.gritter.add({
             title:"Thông báo !",

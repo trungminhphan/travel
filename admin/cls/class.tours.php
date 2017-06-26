@@ -5,6 +5,9 @@ class Tours {
 	private $_collection;
 	public $id = '';
 	public $tieude = '';
+	public $giatour = 0;
+	public $ngaykhoihanh = '';
+	public $ngayketthuc = '';
 	public $mota = '';
 	public $noidung = '';
 	public $giave = '';
@@ -50,6 +53,9 @@ class Tours {
 	public function insert(){
 		$query = array(
 			'tieude' => $this->tieude,
+			'giatour' => intval($this->giatour),
+			'ngaykhoihanh' => $this->ngaykhoihanh,
+			'ngayketthuc' => $this->ngayketthuc,
 			'mota' => $this->mota,
 			'noidung' => $this->noidung,
 			'giave' => $this->giave,
@@ -66,6 +72,9 @@ class Tours {
 	public function edit(){
 		$query = array('$set' => array(
 			'tieude' => $this->tieude,
+			'giatour' => intval($this->giatour),
+			'ngaykhoihanh' => $this->ngaykhoihanh,
+			'ngayketthuc' => $this->ngayketthuc,
 			'mota' => $this->mota,
 			'noidung' => $this->noidung,
 			'giave' => $this->giave,
