@@ -1,5 +1,7 @@
 <?php 
-require_once('header.php'); 
+require_once('header.php');
+$banner = new Banner();$b = $banner->get_one();
+
 ?>
 <div class="site wrapper-content">
 	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
@@ -72,15 +74,15 @@ require_once('header.php');
 					</div>
 				</div>
 				<div class="widget-area col-sm-3 align-left">
+				<?php if($b['banner_right']) : ?>
+				<?php foreach($b['banner_right'] as $r) : ?>
 					<aside class="widget widget_text">
-						<img src="images/images-sidebar/sidebanner-ticketing.jpg" alt="">
+						<?php echo $r['link'] ? '<a href="'.$r['link'].'">' : ''; ?>
+							<img src="<?php echo $target_banner . $r['aliasname']; ?>" alt="<?php echo $r['mota']; ?>" title="<?php echo $r['mota']; ?>">
+						<?php echo $r['link'] ? '</a>' : ''; ?>
 					</aside>
-					<aside class="widget widget_text">
-						<img src="images/images-sidebar/sidebanner-tour.png" alt="">
-					</aside>
-					<aside class="widget widget_text">
-						<img src="images/images-sidebar/hertz-sidebanner.jpg" alt="">
-					</aside>
+				<?php endforeach; ?>
+				<?php endif; ?>
 				</div>
 			</div>
 		</div>

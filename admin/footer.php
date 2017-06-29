@@ -7,7 +7,7 @@
 	<!-- end page container -->
     <!-- begin #footer -->
     <div id="footer" class="footer">
-    	<div class="pull-left">&copy; 2017 Bản quyền SAIGON-TRAVEL</div>
+    	<div class="pull-left">&copy; 2017 Bản quyền TourinStyle Travel Service Limited Company.</div>
     	<div class="pull-right">Giải pháp bởi: <a href="http://wJAYbranding.com" target="_blank">JAYbranding.com</a></div>
     </div>
     <!-- end #footer -->	

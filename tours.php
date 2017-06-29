@@ -3,6 +3,7 @@ require_once('header.php');
 $danhmuctour->id = $id; $dmt = $danhmuctour->get_one();
 $tours = new Tours();
 $query = array('id_danhmuctour' => $id);
+$diemden_list = $tours->get_diemdenmoi();
 $tours_list = $tours->get_list_condition($query);
 ?>
 <div class="site wrapper-content">
@@ -18,28 +19,36 @@ $tours_list = $tours->get_list_condition($query);
 				<div class="site-main col-sm-9 alignright">
 					<ul class="tours products wrapper-tours-slider">
 						<?php foreach($tours_list as $tour): ?>
-						<li class="item-tour col-md-4 col-sm-6 product">
-							<div class="item_border item-product">
-								<div class="post_images">
-									<a href="tour_detail.html?id=<?php echo $tour['_id'];?>">
-									<?php if(isset($tour['hinhanh']) && $tour['hinhanh'][0]['aliasname']): ?>
-										<img width="430" height="305" src="<?php echo $target_images . $tour['hinhanh'][0]['aliasname']; ?>" alt="<?php echo $tour['tieude']; ?>" title="<?php echo $tour['tieude']; ?>">
-									<?php else : ?>
-										<img width="430" height="305" src="images/tour/430x305/tour-1.jpg" alt="<?php echo $tour['tieude']; ?>" title="<?php echo $tour['tieude']; ?>">
-									<?php endif; ?>
-									</a>
+							<?php
+							if($tour['hinhanh'][0]['aliasname']){
+								$file = $target_images . $tour['hinhanh'][0]['aliasname'];
+								$thumb = $target_images . '430x305/' . $tour['hinhanh'][0]['aliasname'];
+								if(!file_exists($thumb)){
+									resize_image($file , null, 430, 305, false , $thumb , false , false ,100 );
+								}
+							} else {
+								$thumb = 'images/tour/430x305/tour-2.jpg';
+							}
+							?>
+							<li class="item-list-tour col-md-12 product">
+								<div class="content-list-tour">
+									<div class="post_images">
+										<a href="tour_detail.html?id=<?php echo $tour['_id'];?>">
+											<img width="430" height="305" src="<?php echo $thumb; ?>" alt="<?php echo $tour['tieude']; ?>" title="<?php echo $tour['tieude']; ?>">
+										</a>
+									</div>
+									<div class="wrapper_content">
+										<div class="content-left">
+											<div class="post_title"><h4>
+												<a href="tour_detail.html?id=<?php echo $tour['_id'];?>"><?php echo $tour['tieude']; ?></a>
+											</h4></div>
+											<div class="description">
+												<?php echo $tour['mota']; ?>
+											</div>
+										</div>
+									</div>
 								</div>
-								<div class="wrapper_content">
-									<div class="post_title"><h4>
-										<a href="tour_detail.html?id=<?php echo $tour['_id'];?>" rel="bookmark"><?php echo $tour['tieude']; ?></a>
-									</h4></div>
-									<span class="post_date"><?php echo $tour['mota']; ?></span>
-								</div>
-								<div class="read_more">
-									<a rel="nofollow" href="tour_detail.html?id=<?php echo $tour['_id'];?>" class="button product_type_tour_phys add_to_cart_button">Xem chi tiết</a>
-								</div>
-							</div>
-						</li>
+							</li>
 						<?php endforeach; ?>
 					</ul>
 					<!--<div class="navigation paging-navigation" role="navigation">
@@ -74,60 +83,33 @@ $tours_list = $tours->get_list_condition($query);
 					</div>
 					<aside class="widget widget_travel_tour">
 						<div class="wrapper-special-tours">
-							<div class="inner-special-tours">
-								<a href="single-tour.html">
-									<img width="430" height="305" src="images/tour/430x305/tour-1.jpg" alt="Discover Brazil" title="Discover Brazil"></a>
-								<div class="item_rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<div class="post_title"><h3>
-									<a href="single-tour.html" rel="bookmark">Discover Brazil</a>
-								</h3></div>
-								<div class="item_price">
-									<span class="price">$93.00</span>
-								</div>
+							<?php if($diemden_list): ?>
+						<div class="wrapper-special-tours">
+						<?php
+							foreach($diemden_list as $dd){
+								if($dd['hinhanh'][0]['aliasname']){
+									$file = $target_images . $dd['hinhanh'][0]['aliasname'];
+									$thumb = $target_images . '430x305/' . $dd['hinhanh'][0]['aliasname'];
+									if(!file_exists($thumb)){
+										resize_image($file , null, 430, 305, false , $thumb , false , false ,100 );
+									}
+								} else {
+									$thumb = 'images/tour/430x305/tour-2.jpg';
+								}
+								echo '<div class="inner-special-tours">
+									<a href="single-tour.html">
+										<img width="430" height="305" src="'.$thumb.'" alt="'.$dd['tieude'].'" title="'.$dd['tieude'].'"></a>
+									<div class="post_title"><h3>
+										<a href="tour_detail.html?id='.$dd['_id'].'" rel="bookmark">'.$dd['tieude'].'</a>
+									</h3></div>
+									<div class="item_price">
+										<span class="price">'.format_number($dd['giatour']).' VNĐ</span>
+									</div>
+									</div>';
+								}
+							?>
 							</div>
-							<div class="inner-special-tours">
-								<a href="single-tour.html">
-									<span class="onsale">Sale!</span>
-									<img width="430" height="305" src="images/tour/430x305/tour-2.jpg" alt="Discover Brazil" title="Discover Brazil"></a>
-								<div class="item_rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<div class="post_title"><h3>
-									<a href="single-tour.html" rel="bookmark">Kiwiana Panorama</a>
-								</h3></div>
-								<div class="item_price">
-									<span class="price"><del>$87.00</del>
-									<ins>$82.00</ins></span>
-								</div>
-							</div>
-							<div class="inner-special-tours">
-								<a href="single-tour.html">
-									<img width="430" height="305" src="images/tour/430x305/tour-3.jpg" alt="Discover Brazil" title="Discover Brazil">
-								</a>
-								<div class="item_rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-o"></i>
-								</div>
-								<div class="post_title"><h3>
-									<a href="single-tour.html" rel="bookmark">Anchorage to Quito</a>
-								</h3></div>
-								<div class="item_price">
-									<span class="price">$64.00</span>
-								</div>
-							</div>
+						<?php endif; ?>
 						</div>
 					</aside>
 				</div>

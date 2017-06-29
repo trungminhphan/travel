@@ -1902,8 +1902,9 @@ input[type=radio]:checked:before {
 .item-list-tour .content-list-tour .wrapper_content {
 	width:    65%;
 	float:    left;
-	padding:  25px 30px;
+	padding:  5px 10px 10px 10px;
 	position: relative;
+	text-align: justify;
 }
 
 .item-list-tour .content-list-tour .wrapper_content:before {
@@ -1921,7 +1922,8 @@ input[type=radio]:checked:before {
 }
 
 .item-list-tour .content-list-tour .wrapper_content .content-left {
-	width:          calc(100% - 154px);
+	/*width:          calc(100% - 154px);*/
+	width: 100% !important;
 	display:        inline-block;
 	vertical-align: middle;
 	padding-right:  30px;

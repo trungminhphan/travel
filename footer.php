@@ -40,9 +40,11 @@
 		</div>
 	</div>
 </div>
-<script type='text/javascript' src='assets/js/jquery.min.js'></script>
-<script type='text/javascript' src='assets/js/bootstrap.min.js'></script>
-<script type='text/javascript' src='assets/js/vendors.js'></script>
-<script type='text/javascript' src='assets/js/theme.js'></script>
+<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+<script src="admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+
+<script type="text/javascript" src="assets/js/vendors.js"></script>
+<script type="text/javascript" src="assets/js/theme.js"></script>
 </body>
 </html>

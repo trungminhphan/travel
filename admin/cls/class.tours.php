@@ -40,6 +40,11 @@ class Tours {
 		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
 	}
 
+	public function get_diemdenmoi(){
+		$query = array('id_danhmucdiemden' => array('$exists' => true));
+		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
+	}
+
 	public function get_one(){
 		$query = array('_id' => new MongoId($this->id));
 		return $this->_collection->findOne($query);

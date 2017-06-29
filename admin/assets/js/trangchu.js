@@ -118,6 +118,39 @@ function upload_banner(){
     });
 }
 
+function upload_banner_right(){
+    $(".banner_right_dinhkem").change(function() {
+      var formData = new FormData($("#bannerform")[0]);
+       $.ajax({
+        url: "post.upload_banner_right.php", type: "POST",
+        data: formData, async: false,
+        success: function(datas) {
+            if(datas=='Failed'){
+                $.gritter.add({
+                    title:"Không thể Thêm Banner",
+                    text:"Không thể Thêm Banner",
+                    image:"assets/img/login.png",
+                    sticky:false,
+                    time:""
+                });
+            } else {
+                //$(".info").remove();
+                $("#banner_right_list").prepend(datas); delete_file();
+            }
+        },
+        cache: false, contentType: false, processData: false
+        }).fail(function() {
+            $.gritter.add({
+                title:"Không thể Upload tập tin",
+                text:"Không thể Upload tập tin",
+                image:"assets/img/login.png",
+                sticky:false,
+                time:""
+            });
+        });
+    });
+}
+
 function upload_hanghoa(){
     $(".hanghoa_dinhkem").change(function() {
       var formData = new FormData($("#thongtinhanghoaform")[0]);

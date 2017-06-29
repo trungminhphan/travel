@@ -6,39 +6,36 @@ $tours_list = $tours->get_all_list();
 $diemden_list = $tours->get_diemdenmoi();
 $danhmucdiemden_list = $danhmucdiemden->get_all_list();
 $danhmuctour_list = $danhmuctour->get_all_list();
-?>
-<link href="admin/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
-<link href="admin/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
 
+
+
+$tieude = isset($_GET['tieude']) ? $_GET['tieude'] : '';
+$id_danhmuctour = isset($_GET['id_danhmuctour']) ? $_GET['id_danhmuctour'] : '';
+$id_danhmucdiemden = isset($_GET['id_danhmucdiemden']) ? $_GET['id_danhmucdiemden'] : '';
+$ngaykhoihanh = isset($_GET['ngaykhoihanh']) ? $_GET['ngaykhoihanh'] : '';
+$query = array();
+if($tieude){
+	array_push($query, array('tieude' => new MongoRegex('/'.$tieude.'/i')));
+}
+if($id_danhmuctour){
+	array_push($query, array('id_danhmuctour' => $id_danhmuctour));
+}
+if($id_danhmucdiemden){
+	array_push($query, array('id_danhmucdiemden' => $id_danhmucdiemden));
+}
+if($ngaykhoihanh){
+	$nkh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
+	array_push($query, array('ngaykhoihanh' => $nkh));	
+}
+$q = array('$or' => $query);
+$tours_list = $tours->get_list_condition($q);
+?>
 <div class="site wrapper-content">
-	<?php if($b) : ?>
-	<div class="home-content" role="main">
-		<div class="top_site_main"></div>
-		<div id="home-page-slider-image" class="carousel slide" data-ride="carousel">
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner" role="listbox">
-			<?php foreach($b['banner'] as $k => $v){
-				echo '<div class="item '.($k==0 ? 'active' :'').'">
-					<img src="'.$target_banner . $v['aliasname'].'" alt="'.$v['mota'].'">
-					<div class="carousel-caption content-slider">
-						<div class="container">
-						'.($v['mota'] ? '<h2>'.$v['mota'].'</h2>' : '').'
-						'. ($v['link'] ? '<p><a href="'.$v['link'].'" class="btn btn-slider"> Xem chi tiết</a></p>' : '').'
-						</div>
-					</div>
-				</div>';
-				} ?>
-			</div>
-			<!-- Controls -->
-			<a class="carousel-control-left" href="#home-page-slider-image" data-slide="prev">
-				<i class="lnr lnr-chevron-left"></i>
-			</a>
-			<a class="carousel-control-right" href="#home-page-slider-image" data-slide="next">
-				<i class="lnr lnr-chevron-right"></i>
-			</a>
+	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
+		<div class="banner-wrapper container article_heading">
+			<h1 class="heading_primary">KẾT QUẢ TÌM KIẾM</h1>
 		</div>
 	</div>
-	<?php endif; ?>
 	<?php if($tours_list): ?>
 	<section class="content-area">
 		<div class="container">
@@ -93,13 +90,13 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 							<h3 class="form-block_title">Tìm kiếm</h3>
 							<div class="form-block__description">Tìm Tour bạn cần tìm kiếm!</div>
 							<form method="GET" action="search.html">
-								<input type="text" placeholder="Tên Tour" value="" name="tieude" id="tieude">
+								<input type="text" placeholder="Tên Tour" value="<?php echo isset($tieude) ? $tieude : ''; ?>" name="tieude" id="tieude">
 								<select name="id_danhmuctour" id="id_danhmuctour">
 									<option value="">Chọn loại Tour</option>
 									<?php
 				                        if($danhmuctour_list){
 				                            $list_tree = iterator_to_array($danhmuctour_list);
-				                            showCategories($list_tree);
+				                            showCategories($list_tree, '', '' , array($id_danhmuctour));
 				                        }
 				                    ?>
 								</select>
@@ -108,44 +105,46 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 									 <?php
 				                        if($danhmucdiemden_list){
 				                            $list_tree = iterator_to_array($danhmucdiemden_list);
-				                            showCategories($list_tree);
+				                            showCategories($list_tree, '', '' , array($id_danhmucdiemden));
 				                        }
 				                    ?>
 								</select>
 
-								<input type="text" placeholder="Ngày khởi hành" value="" class="datepicker" name="ngaykhoihanh" id="ngaykhoihanh" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
+								<input type="text" placeholder="Ngày khởi hành" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : ''; ?>" class="datepicker" name="ngaykhoihanh" id="ngaykhoihanh" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
 								<button type="submit"><i class="fa fa-search"></i> Tìm</button>
 							</form>
 						</div>
 					</div>
 					<aside class="widget widget_travel_tour">
-					<?php if($diemden_list): ?>
 						<div class="wrapper-special-tours">
-						<?php
-						foreach($diemden_list as $dd){
-							if($dd['hinhanh'][0]['aliasname']){
-								$file = $target_images . $dd['hinhanh'][0]['aliasname'];
-								$thumb = $target_images . '430x305/' . $dd['hinhanh'][0]['aliasname'];
-								if(!file_exists($thumb)){
-									resize_image($file , null, 430, 305, false , $thumb , false , false ,100 );
+							<?php if($diemden_list): ?>
+							<div class="wrapper-special-tours">
+							<?php
+							foreach($diemden_list as $dd){
+								if($dd['hinhanh'][0]['aliasname']){
+									$file = $target_images . $dd['hinhanh'][0]['aliasname'];
+									$thumb = $target_images . '430x305/' . $dd['hinhanh'][0]['aliasname'];
+									if(!file_exists($thumb)){
+										resize_image($file , null, 430, 305, false , $thumb , false , false ,100 );
+									}
+								} else {
+									$thumb = 'images/tour/430x305/tour-2.jpg';
 								}
-							} else {
-								$thumb = 'images/tour/430x305/tour-2.jpg';
-							}
-							echo '<div class="inner-special-tours">
-								<a href="single-tour.html">
-									<img width="430" height="305" src="'.$thumb.'" alt="'.$dd['tieude'].'" title="'.$dd['tieude'].'"></a>
-								<div class="post_title"><h3>
-									<a href="tour_detail.html?id='.$dd['_id'].'" rel="bookmark">'.$dd['tieude'].'</a>
-								</h3></div>
-								<div class="item_price">
-									<span class="price">'.format_number($dd['giatour']).' VNĐ</span>
-								</div>
-								</div>';
-							}
-						?>
+								echo '<div class="inner-special-tours">
+									<a href="single-tour.html">
+										<img width="430" height="305" src="'.$thumb.'" alt="'.$dd['tieude'].'" title="'.$dd['tieude'].'"></a>
+									<div class="post_title"><h3>
+										<a href="tour_detail.html?id='.$dd['_id'].'" rel="bookmark">'.$dd['tieude'].'</a>
+									</h3></div>
+									<div class="item_price">
+										<span class="price">'.format_number($dd['giatour']).' VNĐ</span>
+									</div>
+									</div>';
+								}
+							?>
+							</div>
+						<?php endif; ?>
 						</div>
-					<?php endif; ?>
 					</aside>
 				</div>
 			</div>
@@ -154,3 +153,4 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 	<?php endif; ?>
 </div>
 <?php require_once('footer.php'); ?>
+

@@ -12,8 +12,12 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+	<title>TourinStyle</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="travel, tourinstyle, tour, viet travel, tour du lich, du lich, du lich trong nuoc, du lich ngoai nuoc, du lich chau au, du lich nhat ban, du lich hoa ky" />
+	<meta name="description" content="Tour In Style - Tự hào là đơn vị tổ chức và điều hành tour uy tín cho các cá nhân tập thể du lịch trong và ngoài nước" />
+	<meta name="title" content="Tour In Style - Du lịch trong và ngoài nước theo cách của bạn" />
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="xmlrpc.php">
 	<title>TourInStyle</title>

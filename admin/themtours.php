@@ -144,11 +144,11 @@ if($id && $act == 'edit'){
                 <div class="form-group">
                     <label class="col-md-3 control-label">Ngày khởi hành</label>
                     <div class="col-md-3">
-                        <input type="text" name="ngaykhoihanh" id="ngaykhoihanh" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : date("d/m/Y"); ?>"/>
+                        <input type="text" name="ngaykhoihanh" id="ngaykhoihanh" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : date("d/m/Y"); ?>"/>
                     </div>
                     <label class="col-md-3 control-label">Ngày kết thúc</label>
                     <div class="col-md-3">
-                        <input type="text" name="ngayketthuc" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyys" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngayketthuc) ? $ngayketthuc : date("d/m/Y"); ?>"/>
+                        <input type="text" name="ngayketthuc" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngayketthuc) ? $ngayketthuc : date("d/m/Y"); ?>"/>
                     </div>
                 </div>
                 <div class="form-group">

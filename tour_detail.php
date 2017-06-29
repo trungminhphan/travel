@@ -3,6 +3,7 @@ require_once('header.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $tours = new Tours();$tours->id = $id; $t = $tours->get_one();
 $danhmuctour = new DanhMucTour();
+$diemden_list = $tours->get_diemdenmoi();
 ?>
 <div class="site wrapper-content">
 	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
@@ -91,35 +92,36 @@ $danhmuctour = new DanhMucTour();
 							<ul class="tours products wrapper-tours-slider">
 							<?php
 							foreach ($relates as $r) {
-								$file = $target_images . $r['hinhanh'][0]['aliasname'];
-								$thumb = $target_images . '430x305/' . $r['hinhanh'][0]['aliasname'];
 								if($r['hinhanh'][0]['aliasname']){
+									$file = $target_images . $r['hinhanh'][0]['aliasname'];
+									$thumb = $target_images . '430x305/' . $r['hinhanh'][0]['aliasname'];
 									if(!file_exists($thumb)){
 										resize_image($file , null, 430, 305, false , $thumb , false , false ,100 );
 									}
 								} else {
 									$thumb = 'images/tour/430x305/tour-2.jpg';
 								}
-								echo '<li class="item-tour col-md-4 col-sm-6 product">
-									<div class="item_border item-product">
-										<div class="post_images">
-											<a href="tour_detail.html?id='.$r['_id'].'">
-												<img width="430" height="305" src="images/tour/430x305/tour-1.jpg" alt="Discover Brazil" title="Discover Brazil">
-											</a>
-										</div>
-										<div class="wrapper_content">
+							?>
+							<li class="item-list-tour col-md-12 product">
+								<div class="content-list-tour">
+									<div class="post_images">
+										<a href="tour_detail.html?id=<?php echo $r['_id'];?>">
+											<img width="430" height="305" src="<?php echo $thumb; ?>" alt="<?php echo $r['tieude']; ?>" title="<?php echo $r['tieude']; ?>">
+										</a>
+									</div>
+									<div class="wrapper_content">
+										<div class="content-left">
 											<div class="post_title"><h4>
-												<a href="tour_detail.html?id='.$r['_id'].'" rel="bookmark">'.$r['tieude'].'</a>
+												<a href="tour_detail.html?id=<?php echo $r['_id'];?>"><?php echo $r['tieude']; ?></a>
 											</h4></div>
-											<span class="post_date">'.$r['mota'].'</span>
-										</div>
-										<div class="read_more">
-											<a rel="nofollow" href="tour_detail.html?id='.$r['_id'].'" class="button product_type_tour_phys add_to_cart_button">Xem chi tiết</a>
+											<div class="description">
+												<?php echo $r['mota']; ?>
+											</div>
 										</div>
 									</div>
-								</li>';
-								}
-								?>
+								</div>
+							</li>
+							<?php } ?>
 							</ul>
 						</div>
 						<?php endif; ?>
@@ -159,57 +161,33 @@ $danhmuctour = new DanhMucTour();
 							<div class="widget-area align-left col-sm-3">
 								<aside class="widget widget_travel_tour">
 									<div class="wrapper-special-tours">
-										<div class="inner-special-tours">
-											<a href="single-tour.html">
-												<img width="430" height="305" src="images/tour/430x305/tour-1.jpg" alt="Discover Brazil" title="Discover Brazil"></a>
-											<div class="item_rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="post_title"><h3>
-												<a href="single-tour.html" rel="bookmark">Discover Brazil</a>
-											</h3></div>
+										<?php if($diemden_list): ?>
+										<div class="wrapper-special-tours">
+										<?php
+										foreach($diemden_list as $dd){
+											if($dd['hinhanh'][0]['aliasname']){
+												$file = $target_images . $dd['hinhanh'][0]['aliasname'];
+												$thumb = $target_images . '430x305/' . $dd['hinhanh'][0]['aliasname'];
+												if(!file_exists($thumb)){
+													resize_image($file , null, 430, 305, false , $thumb , false , false ,100 );
+												}
+											} else {
+												$thumb = 'images/tour/430x305/tour-2.jpg';
+											}
+											echo '<div class="inner-special-tours">
+												<a href="single-tour.html">
+													<img width="430" height="305" src="'.$thumb.'" alt="'.$dd['tieude'].'" title="'.$dd['tieude'].'"></a>
+												<div class="post_title"><h3>
+													<a href="tour_detail.html?id='.$dd['_id'].'" rel="bookmark">'.$dd['tieude'].'</a>
+												</h3></div>
+												<div class="item_price">
+													<span class="price">'.format_number($dd['giatour']).' VNĐ</span>
+												</div>
+												</div>';
+											}
+										?>
 										</div>
-										<div class="inner-special-tours">
-											<a href="single-tour.html">
-												<span class="onsale">Sale!</span>
-												<img width="430" height="305" src="images/tour/430x305/tour-2.jpg" alt="Discover Brazil" title="Discover Brazil"></a>
-											<div class="item_rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="post_title"><h3>
-												<a href="tour_detail.html?id=<?php echo $r['_id']; ?>" rel="bookmark">Kiwiana Panorama</a>
-											</h3></div>
-											<div class="item_price">
-									<span class="price"><del>$87.00</del>
-									<ins>$82.00</ins></span>
-											</div>
-										</div>
-										<div class="inner-special-tours">
-											<a href="single-tour.html">
-												<img width="430" height="305" src="images/tour/430x305/tour-3.jpg" alt="Discover Brazil" title="Discover Brazil">
-											</a>
-											<div class="item_rating">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-												<i class="fa fa-star-o"></i>
-											</div>
-											<div class="post_title"><h3>
-												<a href="single-tour.html" rel="bookmark">Anchorage to Quito</a>
-											</h3></div>
-											<div class="item_price">
-												<span class="price">$64.00</span>
-											</div>
-										</div>
+									<?php endif; ?>
 									</div>
 								</aside>
 							</div>
