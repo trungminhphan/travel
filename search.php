@@ -7,8 +7,6 @@ $diemden_list = $tours->get_diemdenmoi();
 $danhmucdiemden_list = $danhmucdiemden->get_all_list();
 $danhmuctour_list = $danhmuctour->get_all_list();
 
-
-
 $tieude = isset($_GET['tieude']) ? $_GET['tieude'] : '';
 $id_danhmuctour = isset($_GET['id_danhmuctour']) ? $_GET['id_danhmuctour'] : '';
 $id_danhmucdiemden = isset($_GET['id_danhmucdiemden']) ? $_GET['id_danhmucdiemden'] : '';
@@ -24,10 +22,14 @@ if($id_danhmucdiemden){
 	array_push($query, array('id_danhmucdiemden' => $id_danhmucdiemden));
 }
 if($ngaykhoihanh){
-	$nkh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
+	$nkh = $ngaykhoihanh ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
 	array_push($query, array('ngaykhoihanh' => $nkh));	
 }
-$q = array('$or' => $query);
+$q = array('$and' => array(
+	array('hienthi' => 1),
+	array('$or' => $query)
+));
+//$q = array('$or' => $query);
 $tours_list = $tours->get_list_condition($q);
 ?>
 <div class="site wrapper-content">

@@ -29,6 +29,15 @@ if(isset($_POST['submit'])){
     $giatour = isset($_POST['giatour']) ? $_POST['giatour'] : '';
     $ngaykhoihanh = isset($_POST['ngaykhoihanh']) ? $_POST['ngaykhoihanh'] : '';
     $ngayketthuc = isset($_POST['ngayketthuc']) ? $_POST['ngayketthuc'] : '';
+    $arr_ngaykhoihanh = array();$arr_ngayketthuc = array();
+    if($ngaykhoihanh){
+        foreach($ngaykhoihanh as $key => $value){
+            $date_1 = $value ? new MongoDate(convert_date_yyyy_mm_dd($value)) : '';
+            $date_2 = $ngayketthuc[$key] ? new MongoDate(convert_date_yyyy_mm_dd($ngayketthuc[$key])) : '';
+            array_push($arr_ngaykhoihanh, $date_1);
+            array_push($arr_ngayketthuc, $date_2);
+        }
+    }
     $mota = isset($_POST['mota']) ? $_POST['mota'] : '';
     $noidung = isset($_POST['noidung']) ? $_POST['noidung'] : '';
     $giave = isset($_POST['giave']) ? $_POST['giave'] : '';
@@ -49,8 +58,10 @@ if(isset($_POST['submit'])){
     $tours->id_danhmucdiemden = $id_danhmucdiemden;
     $tours->tieude = $tieude;
     $tours->giatour = $giatour;
-    $tours->ngaykhoihanh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
-    $tours->ngayketthuc = $ngayketthuc  ? new MongoDate(convert_date_yyyy_mm_dd($ngayketthuc)) : '';
+    //$tours->ngaykhoihanh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
+    //$tours->ngayketthuc = $ngayketthuc  ? new MongoDate(convert_date_yyyy_mm_dd($ngayketthuc)) : '';
+    $tours->ngaykhoihanh = $arr_ngaykhoihanh;
+    $tours->ngayketthuc = $arr_ngayketthuc;
     $tours->mota = $mota;
     $tours->noidung = $noidung;
     $tours->giave = $giave;
@@ -73,8 +84,8 @@ if($id && $act == 'edit'){
     $id_danhmucdiemden = $t['id_danhmucdiemden'];
     $tieude = $t['tieude'];
     $giatour = isset($t['giatour']) ? $t['giatour'] : '';
-    $ngaykhoihanh = isset($t['ngaykhoihanh']) ? date("d/m/Y", $t['ngaykhoihanh']->sec) : '';
-    $ngayketthuc = isset($t['ngayketthuc']) ? date("d/m/Y", $t['ngayketthuc']->sec) : '';
+    $ngaykhoihanh = is_array($t['ngaykhoihanh']) ? $t['ngaykhoihanh'] : date("d/m/Y", $t['ngaykhoihanh']->sec);
+    $ngayketthuc = is_array($t['ngayketthuc']) ? $t['ngayketthuc'] : date("d/m/Y", $t['ngayketthuc']->sec);
     $mota = $t['mota'];
     $noidung = $t['noidung'];
     $giave = $t['giave'];
@@ -141,15 +152,46 @@ if($id && $act == 'edit'){
                         <input class="form-control" type="text" id="giatour" name="giatour" placeholder="Giá Tour" data-parsley-required="true" value="<?php echo isset($giatour) ? $giatour : ''; ?>" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-3 control-label">Ngày khởi hành</label>
-                    <div class="col-md-3">
-                        <input type="text" name="ngaykhoihanh" id="ngaykhoihanh" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : date("d/m/Y"); ?>"/>
+                <div id="ngaydulich">
+                <?php if(is_array($ngaykhoihanh) && is_array($ngayketthuc)): ?>
+                    <?php
+                    foreach($ngaykhoihanh as $key => $value):
+                    $date_1 = date("d/m/Y", $value->sec);
+                    $date_2 = date("d/m/Y", $ngayketthuc[$key]->sec);
+                    ?>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Ngày khởi hành</label>
+                        <div class="col-md-3">
+                            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($date_1) ? $date_1 : date("d/m/Y"); ?>"/>
+                        </div>
+                        <label class="col-md-3 control-label">Ngày kết thúc</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($date_2) ? $date_2 : date("d/m/Y"); ?>"/>
+                                <?php if($key == 0): ?>
+                                    <span class="input-group-addon"><a href="#" id="add_date" onclick="return false;"><i class="fa fa-plus"></i></a></span>
+                                <?php else: ?>
+                                    <span class="input-group-addon"><a href="#" class="remove_date" onclick="return false;"><i class="fa fa-trash"></i></a></span>
+                                <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
-                    <label class="col-md-3 control-label">Ngày kết thúc</label>
-                    <div class="col-md-3">
-                        <input type="text" name="ngayketthuc" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngayketthuc) ? $ngayketthuc : date("d/m/Y"); ?>"/>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Ngày khởi hành</label>
+                        <div class="col-md-3">
+                            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : date("d/m/Y"); ?>"/>
+                        </div>
+                        <label class="col-md-3 control-label">Ngày kết thúc</label>
+                        <div class="col-md-3">
+                            <div class="input-group">
+                                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngayketthuc) ? $ngayketthuc : date("d/m/Y"); ?>"/>
+                                <span class="input-group-addon"><a href="#" id="add_date" onclick="return false;"><i class="fa fa-plus"></i></a></span>
+                            </div>
+                        </div>
                     </div>
+                <?php endif; ?>
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Mô tả Tour</label>
@@ -218,7 +260,21 @@ if($id && $act == 'edit'){
     </div>
 </div>
 </form>
-
+<div id="date_html" style="display: none;">
+    <div class="form-group">
+        <label class="col-md-3 control-label">Ngày khởi hành</label>
+        <div class="col-md-3">
+            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo date("d/m/Y"); ?>"/>
+        </div>
+        <label class="col-md-3 control-label">Ngày kết thúc</label>
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo date("d/m/Y"); ?>"/>
+                <span class="input-group-addon"><a href="#" class="remove_date" onclick="return false;"><i class="fa fa-trash"></i></a></span>
+            </div>
+        </div>
+    </div>
+</div>
 <div style="clear:both;"></div>
 <?php require_once('footer.php'); ?>
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -239,6 +295,20 @@ if($id && $act == 'edit'){
         $(".select2").select2();
         $(".ngaythangnam").datepicker({todayHighlight:!0});
         $(".ngaythangnam").inputmask();
+        $("#add_date").click(function(){
+            var html = $("#date_html").html();
+            $("#ngaydulich").append(html);
+            $(".ngaythangnam").datepicker({todayHighlight:!0});
+            $(".ngaythangnam").inputmask();
+            $(".remove_date").click(function(){
+                var _this = $(this);
+                _this.parents(".form-group").remove();
+            });
+        });
+        $(".remove_date").click(function(){
+            var _this = $(this);
+            _this.parents(".form-group").remove();
+        });
         <?php if(isset($msg) && $msg) : ?>
         $.gritter.add({
             title:"Thông báo !",

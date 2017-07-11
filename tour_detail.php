@@ -25,9 +25,10 @@ $diemden_list = $tours->get_diemdenmoi();
 							<?php echo $t['mota']; ?>
 							<p style="margin-top:20px;">
 								<b>Giá Tour:</b> <?php echo format_number($t['giatour']); ?> VNĐ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<b>Ngày khởi hành:</b> <?php echo date("d/m/Y", $t['ngaykhoihanh']->sec); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<b>Ngày kết thúc:</b> <?php echo date("d/m/Y", $t['ngayketthuc']->sec); ?>
-							</p>
+								<?php //if(!is_array($t['ngaykhoihanh']) && !is_array($t['ngayketthuc'])): ?>
+								<!--<b>Ngày khởi hành:</b> <?php //echo date("d/m/Y", $t['ngaykhoihanh']->sec); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<b>Ngày kết thúc:</b> <?php //echo date("d/m/Y", $t['ngayketthuc']->sec); ?>-->
+							</p><?php //endif; ?>
 							<p style="margin-top:20px;">
 								<b>Loại Tour:</b> <?php echo $danhmuctour->get_tours($t['id_danhmuctour']); ?>
 							</p>
@@ -70,6 +71,9 @@ $diemden_list = $tours->get_diemdenmoi();
 								<li class="itinerary_tab_tab" role="presentation">
 									<a href="#tab-itinerary_tab" role="tab" data-toggle="tab">Hành trình</a>
 								</li>
+								<li class="itinerary_tab_tab" role="presentation">
+									<a href="#tab-calendar_tab" role="tab" data-toggle="tab">Lịch khởi hành</a>
+								</li>
 							</ul>
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane single-tour-tabs-panel single-tour-tabs-panel--description panel entry-content wc-tab active" id="tab-description">
@@ -79,6 +83,43 @@ $diemden_list = $tours->get_diemdenmoi();
 								<div role="tabpanel" class="tab-pane single-tour-tabs-panel single-tour-tabs-panel--itinerary_tab panel entry-content wc-tab" id="tab-itinerary_tab">
 									<div class="item_content">
 										<?php echo $t['noidung']; ?>
+									</div>
+								</div>
+								<div role="tabpanel" class="tab-pane single-tour-tabs-panel single-tour-tabs-panel--itinerary_tab panel entry-content wc-tab" id="tab-calendar_tab">
+									<div class="item_content">
+										<table>
+											<thead>
+											<tr>
+												<th>STT</th>
+												<th>Ngày khởi hành</th>
+												<th>Ngày kết thúc</th>
+											</tr>
+											</thead>
+											<tbody>
+											<?php
+											if(is_array($t['ngaykhoihanh']) && is_array($t['ngayketthuc'])){
+												$i = 1;
+												foreach($t['ngaykhoihanh'] as $key => $value){
+													echo '
+														<tr>
+															<td align="center">'.$i.'</td>
+															<td align="center">'.date("d/m/Y", $value->sec).'</td>
+															<td align="center">'.date("d/m/Y", $t['ngayketthuc'][$key]->sec).'</td>
+														</tr>
+													';$i++;
+												}
+											} else {
+												echo '
+													<tr>
+														<td align="center">1</td>
+														<td align="center">'.date("d/m/Y", $t['ngaykhoihanh']->sec).'</td>
+														<td align="center">'.date("d/m/Y", $t['ngayketthuc']->sec).'</td>
+													</tr>
+												';
+											}
+											?>
+											</tbody>
+										</table>
 									</div>
 								</div>
 							</div>

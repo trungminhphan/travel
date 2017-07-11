@@ -2,7 +2,7 @@
 require_once('header.php');
 $danhmuctour->id = $id; $dmt = $danhmuctour->get_one();
 $tours = new Tours();
-$query = array('id_danhmuctour' => $id);
+$query = array('id_danhmuctour' => $id, 'hienthi' => 1);
 $diemden_list = $tours->get_diemdenmoi();
 $tours_list = $tours->get_list_condition($query);
 ?>

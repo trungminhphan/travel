@@ -2,7 +2,7 @@
 require_once('header.php');
 $tours = new Tours(); $banner = new Banner(); $b = $banner->get_one();
 $danhmucdiemden = new DanhMucDiemDen();$danhmuctour = new DanhMucTour();
-$tours_list = $tours->get_all_list();
+$tours_list = $tours->get_all_list_show();
 $diemden_list = $tours->get_diemdenmoi();
 $danhmucdiemden_list = $danhmucdiemden->get_all_list();
 $danhmuctour_list = $danhmuctour->get_all_list();

@@ -27,21 +27,26 @@ class Tours {
 		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1));
 	}
 
+	public function get_all_list_show(){
+		$query = array('hienthi' => 1);
+		return $this->_collection->find($query)->sort(array('orders' => 1, 'date_post'=>-1));
+	}
 	public function get_list_condition($condition){
 		return $this->_collection->find($condition)->sort(array('orders' => 1, 'date_post'=>-1));
 	}
 
 	public function get_list_to_parent(){
-		$query = array('id_danhmuctour' => $this->id_danhmuctour);
+		$query = array('id_danhmuctour' => $this->id_danhmuctour, 'hienthi' => 1);
 		return $this->_collection->find($query)->limit(20)->sort(array('orders' => 1, 'date_post'=>-1));	
 	}
 
 	public function get_tourmoi(){
-		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
+		$query = array('hienthi' => 1);
+		return $this->_collection->find($query)->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
 	}
 
 	public function get_diemdenmoi(){
-		$query = array('id_danhmucdiemden' => array('$exists' => true));
+		$query = array('id_danhmucdiemden' => array('$exists' => true), 'hienthi' => 1);
 		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
 	}
 
