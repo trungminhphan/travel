@@ -25,10 +25,12 @@ if($ngaykhoihanh){
 	$nkh = $ngaykhoihanh ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
 	array_push($query, array('ngaykhoihanh' => $nkh));	
 }
+if(count($query) > 0){
 $q = array('$and' => array(
 	array('hienthi' => 1),
 	array('$or' => $query)
 ));
+} else { $q = array();}
 //$q = array('$or' => $query);
 $tours_list = $tours->get_list_condition($q);
 ?>

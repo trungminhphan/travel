@@ -43,8 +43,8 @@
 <script type="text/javascript" src="assets/js/jquery.min.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
 <script src="admin/assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-
 <script type="text/javascript" src="assets/js/vendors.js"></script>
 <script type="text/javascript" src="assets/js/theme.js"></script>
+<script lang="javascript">(function() {var pname = ( (document.title !='')? document.title : document.querySelector('h1').innerHTML );var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async=1; ga.src = '//live.vnpgroup.net/js/web_client_box.php?hash=9b20b8e55ff27b8263cbb0eb7c8554fd&data=eyJzc29faWQiOjQ5MDc5NzYsImhhc2giOiI4M2E0OTdmZjk5MzBkYjZhYmMzMTE2NTI1NWNiOTI2MiJ9&pname='+pname;var s = document.getElementsByTagName('script');s[0].parentNode.insertBefore(ga, s[0]);})();</script>
 </body>
 </html>

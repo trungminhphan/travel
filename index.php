@@ -9,7 +9,6 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 ?>
 <link href="admin/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
 <link href="admin/assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.css" rel="stylesheet" />
-
 <div class="site wrapper-content">
 	<?php if($b) : ?>
 	<div class="home-content" role="main">
@@ -133,11 +132,12 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 								$thumb = 'images/tour/430x305/tour-2.jpg';
 							}
 							echo '<div class="inner-special-tours">
-								<a href="single-tour.html">
-									<img width="430" height="305" src="'.$thumb.'" alt="'.$dd['tieude'].'" title="'.$dd['tieude'].'"></a>
-								<div class="post_title"><h3>
-									<a href="tour_detail.html?id='.$dd['_id'].'" rel="bookmark">'.$dd['tieude'].'</a>
-								</h3></div>
+								<a href="tour_detail.html?id='.$dd['_id'].'">
+									<img width="430" height="305" src="'.$thumb.'" alt="'.$dd['tieude'].'" title="'.$dd['tieude'].'">
+								</a>
+								<div class="post_title">
+									<h3><a href="tour_detail.html?id='.$dd['_id'].'" rel="bookmark">'.$dd['tieude'].'</a></h3>
+								</div>
 								<div class="item_price">
 									<span class="price">'.format_number($dd['giatour']).' VNĐ</span>
 								</div>

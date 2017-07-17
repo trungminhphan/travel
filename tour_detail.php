@@ -170,7 +170,7 @@ $diemden_list = $tours->get_diemdenmoi();
 					<div class="summary entry-summary description_single">
 						<div class="affix-sidebar">
 							<div class="entry-content-tour">
-								<p class="price">
+								<p class="price" style="background: #8bc63e;">
 									<span class="travel_tour-Price-amount amount">Đặt Tours</span>
 								</p>
 								<div class="clear"></div>
@@ -188,11 +188,6 @@ $diemden_list = $tours->get_diemdenmoi();
 											</div>
 											<div class="">
 												<input type="text" name="date_book" value="" placeholder="Ngày đặt" class="hasDatepicker">
-											</div>
-											<div class="from-group">
-												<div class="total_price_arrow">
-													<input type="hidden" name="price_children_percent" value="70">
-												</div>
 											</div>
 											<input class="btn-booking btn" value="Đặt Tour" type="submit">
 										</form>

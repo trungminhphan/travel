@@ -1,7 +1,6 @@
 <?php 
 require_once('header.php');
 $banner = new Banner();$b = $banner->get_one();
-
 ?>
 <div class="site wrapper-content">
 	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
@@ -74,7 +73,7 @@ $banner = new Banner();$b = $banner->get_one();
 					</div>
 				</div>
 				<div class="widget-area col-sm-3 align-left">
-				<?php if($b['banner_right']) : ?>
+				<?php if(isset($b['banner_right'])) : ?>
 				<?php foreach($b['banner_right'] as $r) : ?>
 					<aside class="widget widget_text">
 						<?php echo $r['link'] ? '<a href="'.$r['link'].'">' : ''; ?>
