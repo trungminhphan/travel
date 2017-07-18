@@ -1,10 +1,12 @@
 <?php
 require_once('header.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
+$book = isset($_GET['book']) ? $_GET['book'] : '';
 $tours = new Tours();$tours->id = $id; $t = $tours->get_one();
 $danhmuctour = new DanhMucTour();
 $diemden_list = $tours->get_diemdenmoi();
 ?>
+<script type="text/javascript" src="assets/js/html5.messages.js"></script>
 <div class="site wrapper-content">
 	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
 		<div class="banner-wrapper container article_heading">
@@ -16,6 +18,14 @@ $diemden_list = $tours->get_diemdenmoi();
 			<div class="tb_single_tour product">
 				<div class="top_content_single row">
 					<div class="images images_single_left">
+					<?php if($book && $book == 'ok'): ?>
+						<div class="alert alert-danger" role="alert">
+							<p><b>Quí khách đã đặt Tour thành công!</b></p>
+							<p>
+								Cám ơn quí khách đã đặt Tour trực tuyến, chúng tôi sẽ liên hệ với quí khách.
+							</p>
+						</div>
+					<?php endif; ?>
 						<div class="title-single">
 							<div class="title">
 								<h1><?php echo $t['tieude']; ?></h1>
@@ -24,11 +34,30 @@ $diemden_list = $tours->get_diemdenmoi();
 						<div class="tour_after_title" style="text-align:justify;">
 							<?php echo $t['mota']; ?>
 							<p style="margin-top:20px;">
-								<b>Giá Tour:</b> <?php echo format_number($t['giatour']); ?> VNĐ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<?php //if(!is_array($t['ngaykhoihanh']) && !is_array($t['ngayketthuc'])): ?>
-								<!--<b>Ngày khởi hành:</b> <?php //echo date("d/m/Y", $t['ngaykhoihanh']->sec); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<b>Ngày kết thúc:</b> <?php //echo date("d/m/Y", $t['ngayketthuc']->sec); ?>-->
-							</p><?php //endif; ?>
+								<?php if(isset($t['giagiamtour']) && $t['giagiamtour'] > 0) : ?>
+									<b>Giá Tour:</b> <span style="color:#ff0000;font-size:18px;font-weight:bold;"><?php echo format_number($t['giagiamtour']); ?> VNĐ</span>&nbsp;&nbsp;&nbsp;<span><strike><?php echo format_number($t['giatour']); ?> VNĐ</strike></span>
+								<?php else: ?>
+									<b>Giá Tour:</b> <span style="color:#ff0000;font-size:18px;font-weight:bold;"><?php echo format_number($t['giatour']); ?> VNĐ</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+								<?php endif; ?>
+								<?php
+								$ngaykhoihanh = ''; $ngayketthuc='';
+								if($t['ngaykhoihanh'] && is_array($t['ngaykhoihanh'])){
+									foreach($t['ngaykhoihanh'] as $key => $value){
+										if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
+											$ngaykhoihanh = date("d/m/Y", $value->sec);
+											$ngayketthuc = date("d/m/Y", $t['ngayketthuc'][$key]->sec);
+											break;
+										}
+									}
+								} else {
+									$ngaykhoihanh = date("d/m/Y", $t['ngaykhoihanh']->sec);
+									$ngayketthuc = date("d/m/Y", $t['ngayketthuc']->sec);
+								}
+								?>
+							</p>
+							<p style="margin-top:20px;">
+								<b>Ngày khởi hành:</b> <span style="color:#652f8f;font-size:18px;font-weight: bold;"><?php echo $ngaykhoihanh; ?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<b>Ngày kết thúc:</b> <span style="color:#89c53f;font-size:18px;font-weight: bold;"><?php echo $ngayketthuc; ?></span>
 							<p style="margin-top:20px;">
 								<b>Loại Tour:</b> <?php echo $danhmuctour->get_tours($t['id_danhmuctour']); ?>
 							</p>
@@ -133,6 +162,18 @@ $diemden_list = $tours->get_diemdenmoi();
 							<ul class="tours products wrapper-tours-slider">
 							<?php
 							foreach ($relates as $r) {
+								if($r['ngaykhoihanh'] && is_array($r['ngaykhoihanh'])){
+									foreach($r['ngaykhoihanh'] as $key => $value){
+										if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
+											$ngaykhoihanh = date("d/m/Y", $value->sec);
+											$ngayketthuc = date("d/m/Y", $r['ngayketthuc'][$key]->sec);
+											break;
+										}
+									}
+								} else {
+									$ngaykhoihanh = date("d/m/Y", $r['ngaykhoihanh']->sec);
+									$ngayketthuc = date("d/m/Y", $r['ngayketthuc']->sec);
+								}
 								if($r['hinhanh'][0]['aliasname']){
 									$file = $target_images . $r['hinhanh'][0]['aliasname'];
 									$thumb = $target_images . '430x305/' . $r['hinhanh'][0]['aliasname'];
@@ -159,6 +200,24 @@ $diemden_list = $tours->get_diemdenmoi();
 												<?php echo $r['mota']; ?>
 											</div>
 										</div>
+										<div class="content-right">
+											<ul>
+												<?php if(isset($r['giagiamtour']) && $r['giagiamtour'] > 0) : ?>
+												<li style="line-height: 15px;">
+													Giá: <span style="font-size:18px;"><?php echo format_number($r['giagiamtour']); ?></span>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<span style="color:#ff0000;"><?php echo format_number($r['giatour']); ?></span>
+												</li>
+												<?php else: ?>
+												<li style="line-height: 15px;">
+													Giá: <span style="font-size:18px;"><?php echo format_number($r['giatour']); ?></span>
+												</li>
+												<?php endif; ?>
+												<li style="padding-top: 10px;">Khởi hành: <?php echo $ngaykhoihanh; ?></li>
+												<li>Kết thúc: <?php echo $ngayketthuc; ?></li>
+												<li><?php echo $danhmuctour->get_tours($r['id_danhmuctour']); ?></li>
+											</ul>
+										</div>
 									</div>
 								</div>
 							</li>
@@ -176,20 +235,24 @@ $diemden_list = $tours->get_diemdenmoi();
 								<div class="clear"></div>
 								<div class="booking">
 									<div class="">
-										<form id="tourBookingForm" method="POST" action="#">
+										<form id="tourBookingForm" method="POST" action="post.booking.html">
+											<input type="hidden" name="id_tour" id="id_tour" value="<?php echo $id; ?>" />
 											<div class="">
-												<input name="first_name" value="" placeholder="Họ tên" type="text">
+												<input name="hoten" value="" placeholder="Họ tên" type="text" required oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" />
 											</div>
 											<div class="">
-												<input name="email_tour" value="" placeholder="Email" type="text">
+												<input name="email" value="" placeholder="Email" type="email" required oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" />
 											</div>
 											<div class="">
-												<input name="phone" value="" placeholder="Điện thoại" type="text">
+												<input name="dienthoai" value="" placeholder="Điện thoại" type="text" required oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" />
 											</div>
 											<div class="">
-												<input type="text" name="date_book" value="" placeholder="Ngày đặt" class="hasDatepicker">
+												<input type="number" name="sove" value="1" placeholder="Số vé" class="hasDatepicker" required oninvalid="InvalidMsg(this);" oninput="InvalidMsg(this);" />
 											</div>
-											<input class="btn-booking btn" value="Đặt Tour" type="submit">
+											<div class="">
+												<textarea name="ghichu" id="ghichu" cols="10" rows="5" placeholder="Ghi chú"></textarea>
+											</div>
+											<input class="btn-booking btn" value="Đặt Tour" type="submit" name="submit" id="booking_submit" />
 										</form>
 									</div>
 								</div>
@@ -234,5 +297,4 @@ $diemden_list = $tours->get_diemdenmoi();
 		</div>
 	</section>
 </div>
-
 <?php require_once('footer.php'); ?>

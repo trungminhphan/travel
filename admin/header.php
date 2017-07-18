@@ -134,6 +134,12 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
                     </a>
                 </li>
                 <li>
+                    <a href="booking.html">
+                        <i class="fa fa-book"></i> 
+                        <span>BOOKING</span>
+                    </a>
+                </li>
+                <li>
                     <a href="tuvanvisa.html">
                         <i class="fa fa-credit-card"></i> 
                         <span>TƯ VẤN VISA</span>

@@ -12,14 +12,28 @@ $tours_list = $tours->get_list_condition($query);
 			<h1 class="heading_primary"><?php echo $dmt['ten']; ?></h1>
 		</div>
 	</div>
-	<?php if($tours_list): ?>
+	<?php 
+	$ngaykhoihanh = ''; $ngayketthuc = '';
+	if($tours_list): ?>
 	<section class="content-area">
 		<div class="container">
 			<div class="row">
 				<div class="site-main col-sm-9 alignright">
 					<ul class="tours products wrapper-tours-slider">
-						<?php foreach($tours_list as $tour): ?>
-							<?php
+						<?php 
+						foreach($tours_list as $tour):
+							if($tour['ngaykhoihanh'] && is_array($tour['ngaykhoihanh'])){
+								foreach($tour['ngaykhoihanh'] as $key => $value){
+									if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
+										$ngaykhoihanh = date("d/m/Y", $value->sec);
+										$ngayketthuc = date("d/m/Y", $tour['ngayketthuc'][$key]->sec);
+										break;
+									}
+								}
+							} else {
+								$ngaykhoihanh = date("d/m/Y", $tour['ngaykhoihanh']->sec);
+								$ngayketthuc = date("d/m/Y", $tour['ngayketthuc']->sec);
+							}
 							if($tour['hinhanh'][0]['aliasname']){
 								$file = $target_images . $tour['hinhanh'][0]['aliasname'];
 								$thumb = $target_images . '430x305/' . $tour['hinhanh'][0]['aliasname'];
@@ -47,17 +61,22 @@ $tours_list = $tours->get_list_condition($query);
 											</div>
 										</div>
 										<div class="content-right">
-											<div class="item_rating">
-												<div class="item_rating">
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star"></i>
-													<i class="fa fa-star-o"></i>
-												</div>
-											</div>
-											<span class="price">$93.00</span>
-											<a rel="nofollow" href="single-tour.html" class="button product_type_tour_phys add_to_cart_button">Read more</a>
+											<ul>
+												<?php if(isset($tour['giagiamtour']) && $tour['giagiamtour'] > 0) : ?>
+												<li style="line-height: 15px;">
+													Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
+													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<span style="color:#ff0000;"><?php echo format_number($tour['giatour']); ?></span>
+												</li>
+												<?php else: ?>
+												<li style="line-height: 15px;">
+													Giá: <span style="font-size:18px;"><?php echo format_number($tour['giatour']); ?></span>
+												</li>
+												<?php endif; ?>
+												<li style="padding-top: 10px;">Khởi hành: <?php echo $ngaykhoihanh; ?></li>
+												<li>Kết thúc: <?php echo $ngayketthuc; ?></li>
+												<li><?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
+											</ul>
 										</div>
 									</div>
 								</div>

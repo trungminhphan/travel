@@ -146,7 +146,9 @@ h6 {
 	background-color: #ffb300;
 }
 
-.single-woo-tour .description_single #tourBookingForm input[type="text"]:focus {
+.single-woo-tour .description_single #tourBookingForm input[type="text"]:focus,
+.single-woo-tour .description_single #tourBookingForm input[type="number"]:focus,
+.single-woo-tour .description_single #tourBookingForm input[type="email"]:focus {
 	border-color: #ffb300;
 }
 
@@ -216,6 +218,9 @@ h6 {
 	background: #26bdf7;
 }
 
+.post_title h4 a{
+	color: #652f8f;
+}
 .post_title h4 a:hover {
 	color: #26bdf7;
 }

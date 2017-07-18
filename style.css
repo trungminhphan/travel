@@ -1827,16 +1827,19 @@ input[type=radio]:checked:before {
 	padding:       7px 0;
 	margin-bottom: 20px;
 }
-
+#tourBookingForm textarea{
+	border: 2px solid #ddd;
+	padding: 10px;
+}
 #tourBookingForm.hb-search-form input {
 	margin-bottom: 0;
 }
 
-#tourBookingForm input[type="number"] {
+/*#tourBookingForm input[type="number"] {
 	margin-bottom: 0;
 	border:        1px solid #ddd;
 	padding:       7px 0 7px 15px;
-}
+}*/
 
 #tourBookingForm .total_price {
 	margin-bottom: 20px;
@@ -2555,14 +2558,18 @@ input[type=radio]:checked:before {
 	width:    297px;
 }
 
-.single-woo-tour .description_single #tourBookingForm input[type="text"] {
+.single-woo-tour .description_single #tourBookingForm input[type="text"], 
+.single-woo-tour .description_single #tourBookingForm input[type="number"],
+.single-woo-tour .description_single #tourBookingForm input[type="email"]{
 	border:        none;
 	border-bottom: 2px solid #E8E8E8;
 	border-radius: 0;
 	background:    transparent;
 }
 
-.single-woo-tour .description_single #tourBookingForm input[type="text"]:focus {
+.single-woo-tour .description_single #tourBookingForm input[type="text"]:focus,
+.single-woo-tour .description_single #tourBookingForm input[type="number"]:focus, 
+.single-woo-tour .description_single #tourBookingForm input[type="email"]:focus{
 	outline:      none;
 	border-color: #039be5;
 }

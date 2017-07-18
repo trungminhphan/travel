@@ -142,7 +142,9 @@ h6 {
 	background-color: #8bc63e;
 }
 
-.single-woo-tour .description_single #tourBookingForm input[type="text"]:focus {
+.single-woo-tour .description_single #tourBookingForm input[type="text"]:focus,
+.single-woo-tour .description_single #tourBookingForm input[type="number"]:focus,
+.single-woo-tour .description_single #tourBookingForm input[type="email"]:focus {
 	border-color: #8bc63e;
 }
 
@@ -198,6 +200,11 @@ h6 {
 
 .post_images .onsale {
 	background: #26bdf7;
+}
+.post_title h4 a{
+	color: #652f8f;
+	font-size: 16px;
+	font-weight: bold;
 }
 
 .post_title h4 a:hover {
