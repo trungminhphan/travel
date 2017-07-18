@@ -27,6 +27,7 @@ if(isset($_POST['submit'])){
     $act = isset($_POST['act']) ? $_POST['act'] : '';
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
     $giatour = isset($_POST['giatour']) ? $_POST['giatour'] : '';
+    $giagiamtour = isset($_POST['giagiamtour']) ? $_POST['giagiamtour'] : '';
     $ngaykhoihanh = isset($_POST['ngaykhoihanh']) ? $_POST['ngaykhoihanh'] : '';
     $ngayketthuc = isset($_POST['ngayketthuc']) ? $_POST['ngayketthuc'] : '';
     $arr_ngaykhoihanh = array();$arr_ngayketthuc = array();
@@ -58,13 +59,13 @@ if(isset($_POST['submit'])){
     $tours->id_danhmucdiemden = $id_danhmucdiemden;
     $tours->tieude = $tieude;
     $tours->giatour = $giatour;
+    $tours->giagiamtour = $giagiamtour;
     //$tours->ngaykhoihanh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
     //$tours->ngayketthuc = $ngayketthuc  ? new MongoDate(convert_date_yyyy_mm_dd($ngayketthuc)) : '';
     $tours->ngaykhoihanh = $arr_ngaykhoihanh;
     $tours->ngayketthuc = $arr_ngayketthuc;
     $tours->mota = $mota;
     $tours->noidung = $noidung;
-    $tours->giave = $giave;
     $tours->hinhanh = $arr_hinhanh;
     $tours->hienthi = $hienthi;
     $tours->video = $video;
@@ -83,7 +84,8 @@ if($id && $act == 'edit'){
     $id_danhmuctour = $t['id_danhmuctour'];
     $id_danhmucdiemden = $t['id_danhmucdiemden'];
     $tieude = $t['tieude'];
-    $giatour = isset($t['giatour']) ? $t['giatour'] : '';
+    $giatour = isset($t['giatour']) ? $t['giatour'] : 0;
+    $giagiamtour = isset($t['giagiamtour']) ? $t['giagiamtour'] : 0;
     $ngaykhoihanh = is_array($t['ngaykhoihanh']) ? $t['ngaykhoihanh'] : date("d/m/Y", $t['ngaykhoihanh']->sec);
     $ngayketthuc = is_array($t['ngayketthuc']) ? $t['ngayketthuc'] : date("d/m/Y", $t['ngayketthuc']->sec);
     $mota = $t['mota'];
@@ -142,14 +144,20 @@ if($id && $act == 'edit'){
                 </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Tên Tour</label>
-                    <div class="col-md-5">
+                    <div class="col-md-9">
                         <input type="hidden" name="id" id="id" value="<?php echo isset($id) ? $id : '';?>">
                         <input type="hidden" name="act" id="act" value="<?php echo isset($act) ? $act : ''; ?>">
                         <input class="form-control" type="text" id="tieude" name="tieude" placeholder="Tiêu đề" data-parsley-required="true" value="<?php echo isset($tieude) ? $tieude : ''; ?>" />
                     </div>
-                    <label class="col-md-2 control-label">Giá Tour</label>
-                    <div class="col-md-2">
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">Giá Tour</label>
+                    <div class="col-md-3">
                         <input class="form-control" type="text" id="giatour" name="giatour" placeholder="Giá Tour" data-parsley-required="true" value="<?php echo isset($giatour) ? $giatour : ''; ?>" />
+                    </div>
+                    <label class="col-md-3 control-label">Giá giảm Tour</label>
+                    <div class="col-md-3">
+                        <input class="form-control" type="text" id="giagiamtour" name="giagiamtour" placeholder="Giá giảm giá Tour" data-parsley-required="true" value="<?php echo isset($giagiamtour) ? $giagiamtour : 0; ?>" />
                     </div>
                 </div>
                 <div id="ngaydulich">

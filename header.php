@@ -139,6 +139,7 @@ $id = isset($_GET['id']) ? $_GET['id'] : '';
 							}
 						}
 						?>
+						<li class="<?php echo $l == 'tuvanvisa.html' ? 'current-menu-ancestor' : ''; ?>"><a href="tuvanvisa.html">Tư vấn VISA</a></li>
 						<li class="<?php echo $l == 'lienhe.html' ? 'current-menu-ancestor' : ''; ?>"><a href="lienhe.html">Liên hệ</a></li>
 					</ul>
 				</nav>

@@ -6,11 +6,11 @@ class Tours {
 	public $id = '';
 	public $tieude = '';
 	public $giatour = 0;
+	public $giagiamtour = 0;
 	public $ngaykhoihanh = '';
 	public $ngayketthuc = '';
 	public $mota = '';
 	public $noidung = '';
-	public $giave = '';
 	public $hinhanh = '';
 	public $hienthi = 0;
 	public $orders = 0;
@@ -64,11 +64,11 @@ class Tours {
 		$query = array(
 			'tieude' => $this->tieude,
 			'giatour' => intval($this->giatour),
+			'giagiamtour' => intval($this->giagiamtour),
 			'ngaykhoihanh' => $this->ngaykhoihanh,
 			'ngayketthuc' => $this->ngayketthuc,
 			'mota' => $this->mota,
 			'noidung' => $this->noidung,
-			'giave' => $this->giave,
 			'hinhanh' => $this->hinhanh,
 			'hienthi' => intval($this->hienthi),
 			'orders' => intval($this->orders),
@@ -83,11 +83,11 @@ class Tours {
 		$query = array('$set' => array(
 			'tieude' => $this->tieude,
 			'giatour' => intval($this->giatour),
+			'giagiamtour' => intval($this->giagiamtour),
 			'ngaykhoihanh' => $this->ngaykhoihanh,
 			'ngayketthuc' => $this->ngayketthuc,
 			'mota' => $this->mota,
 			'noidung' => $this->noidung,
-			'giave' => $this->giave,
 			'hinhanh' => $this->hinhanh,
 			'hienthi' => intval($this->hienthi),
 			'orders' => intval($this->orders),

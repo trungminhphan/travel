@@ -46,6 +46,19 @@ $tours_list = $tours->get_list_condition($query);
 												<?php echo $tour['mota']; ?>
 											</div>
 										</div>
+										<div class="content-right">
+											<div class="item_rating">
+												<div class="item_rating">
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star"></i>
+													<i class="fa fa-star-o"></i>
+												</div>
+											</div>
+											<span class="price">$93.00</span>
+											<a rel="nofollow" href="single-tour.html" class="button product_type_tour_phys add_to_cart_button">Read more</a>
+										</div>
 									</div>
 								</div>
 							</li>
