@@ -104,7 +104,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div id="banner_right_list">
                 <?php
-                if($t['banner_right']){
+                if(isset($t['banner_right']) && $t['banner_right']){
                     foreach($t['banner_right'] as $banner_right){
                         $orders = isset($banner_right['orders']) ? $banner_right['orders'] : 0;
                         $mota = isset($banner_right['mota']) ? $banner_right['mota'] : '';
