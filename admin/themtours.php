@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
     $giatour = isset($_POST['giatour']) ? $_POST['giatour'] : '';
     $giagiamtour = isset($_POST['giagiamtour']) ? $_POST['giagiamtour'] : '';
-    $ngaykhoihanh = isset($_POST['ngaykhoihanh']) ? $_POST['ngaykhoihanh'] : '';
+    /*$ngaykhoihanh = isset($_POST['ngaykhoihanh']) ? $_POST['ngaykhoihanh'] : '';
     $ngayketthuc = isset($_POST['ngayketthuc']) ? $_POST['ngayketthuc'] : '';
     $arr_ngaykhoihanh = array();$arr_ngayketthuc = array();
     if($ngaykhoihanh){
@@ -38,11 +38,12 @@ if(isset($_POST['submit'])){
             array_push($arr_ngaykhoihanh, $date_1);
             array_push($arr_ngayketthuc, $date_2);
         }
-    }
+    }*/
     $mota = isset($_POST['mota']) ? $_POST['mota'] : '';
     $noidung = isset($_POST['noidung']) ? $_POST['noidung'] : '';
     $giave = isset($_POST['giave']) ? $_POST['giave'] : '';
-    $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : '';
+    $hienthi = isset($_POST['hienthi']) ? $_POST['hienthi'] : 0;
+    $stick = isset($_POST['stick']) ? $_POST['stick'] : 0;
     $orders = isset($_POST['orders']) ? $_POST['orders'] : '';
     $arr_hinhanh = array();
     $hinhanh_aliasname = isset($_POST['hinhanh_aliasname']) ? $_POST['hinhanh_aliasname'] : '';
@@ -62,15 +63,16 @@ if(isset($_POST['submit'])){
     $tours->giagiamtour = $giagiamtour;
     //$tours->ngaykhoihanh = $ngaykhoihanh  ? new MongoDate(convert_date_yyyy_mm_dd($ngaykhoihanh)) : '';
     //$tours->ngayketthuc = $ngayketthuc  ? new MongoDate(convert_date_yyyy_mm_dd($ngayketthuc)) : '';
-    $tours->ngaykhoihanh = $arr_ngaykhoihanh;
-    $tours->ngayketthuc = $arr_ngayketthuc;
+    //$tours->ngaykhoihanh = $arr_ngaykhoihanh;
+    //$tours->ngayketthuc = $arr_ngayketthuc;
     $tours->mota = $mota;
     $tours->noidung = $noidung;
+    $tours->giave = $giave;
     $tours->hinhanh = $arr_hinhanh;
     $tours->hienthi = $hienthi;
+    $tours->stick = $stick;
     $tours->video = $video;
     $tours->orders = $orders;
-
     if($act == 'edit'){
         $tours->id = $id;
         if($tours->edit()) transfers_to('tours.html?msg=Chỉnh sửa thành công');
@@ -86,13 +88,14 @@ if($id && $act == 'edit'){
     $tieude = $t['tieude'];
     $giatour = isset($t['giatour']) ? $t['giatour'] : 0;
     $giagiamtour = isset($t['giagiamtour']) ? $t['giagiamtour'] : 0;
-    $ngaykhoihanh = is_array($t['ngaykhoihanh']) ? $t['ngaykhoihanh'] : date("d/m/Y", $t['ngaykhoihanh']->sec);
-    $ngayketthuc = is_array($t['ngayketthuc']) ? $t['ngayketthuc'] : date("d/m/Y", $t['ngayketthuc']->sec);
+    //$ngaykhoihanh = is_array($t['ngaykhoihanh']) ? $t['ngaykhoihanh'] : date("d/m/Y", $t['ngaykhoihanh']->sec);
+    //$ngayketthuc = is_array($t['ngayketthuc']) ? $t['ngayketthuc'] : date("d/m/Y", $t['ngayketthuc']->sec);
     $mota = $t['mota'];
     $noidung = $t['noidung'];
-    $giave = $t['giave'];
+    $giave = isset($t['giave']) ? $t['giave'] : '';
     $hinhanh = $t['hinhanh'];
     $hienthi = $t['hienthi'];
+    $stick = isset($t['stick']) ? $t['stick'] : 0; 
     $orders = isset($t['orders']) ? $t['orders'] : 0;
 }
 ?>
@@ -160,47 +163,6 @@ if($id && $act == 'edit'){
                         <input class="form-control" type="text" id="giagiamtour" name="giagiamtour" placeholder="Giá giảm giá Tour" data-parsley-required="true" value="<?php echo isset($giagiamtour) ? $giagiamtour : 0; ?>" />
                     </div>
                 </div>
-                <div id="ngaydulich">
-                <?php if(is_array($ngaykhoihanh) && is_array($ngayketthuc)): ?>
-                    <?php
-                    foreach($ngaykhoihanh as $key => $value):
-                    $date_1 = date("d/m/Y", $value->sec);
-                    $date_2 = date("d/m/Y", $ngayketthuc[$key]->sec);
-                    ?>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Ngày khởi hành</label>
-                        <div class="col-md-3">
-                            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($date_1) ? $date_1 : date("d/m/Y"); ?>"/>
-                        </div>
-                        <label class="col-md-3 control-label">Ngày kết thúc</label>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($date_2) ? $date_2 : date("d/m/Y"); ?>"/>
-                                <?php if($key == 0): ?>
-                                    <span class="input-group-addon"><a href="#" id="add_date" onclick="return false;"><i class="fa fa-plus"></i></a></span>
-                                <?php else: ?>
-                                    <span class="input-group-addon"><a href="#" class="remove_date" onclick="return false;"><i class="fa fa-trash"></i></a></span>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="form-group">
-                        <label class="col-md-3 control-label">Ngày khởi hành</label>
-                        <div class="col-md-3">
-                            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngaykhoihanh) ? $ngaykhoihanh : date("d/m/Y"); ?>"/>
-                        </div>
-                        <label class="col-md-3 control-label">Ngày kết thúc</label>
-                        <div class="col-md-3">
-                            <div class="input-group">
-                                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo isset($ngayketthuc) ? $ngayketthuc : date("d/m/Y"); ?>"/>
-                                <span class="input-group-addon"><a href="#" id="add_date" onclick="return false;"><i class="fa fa-plus"></i></a></span>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-                </div>
                 <div class="form-group">
                     <label class="col-md-3 control-label">Mô tả Tour</label>
                     <div class="col-md-9">
@@ -220,12 +182,16 @@ if($id && $act == 'edit'){
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Hiển thị</label>
-                    <div class="col-md-3" id="hienthi_html">
+                    <label class="col-md-2 control-label">Hiển thị</label>
+                    <div class="col-md-2" id="hienthi_html">
                         <input type="checkbox" name="hienthi" id="hienthi" value="1" data-render="switchery" data-theme="default" <?php echo ($id && $hienthi == 0) ? '' : 'checked';?> /> 
                     </div>
-                    <label class="col-md-3 control-label">Sắp xếp</label>
-                    <div class="col-md-3" id="hienthi_html">
+                    <label class="col-md-2 control-label">Stick</label>
+                    <div class="col-md-2" id="stick_html">
+                        <input type="checkbox" name="stick" id="stick" value="1" data-render="switchery" data-theme="default" <?php echo ($id && $stick == 0) ? '' : 'checked';?> /> 
+                    </div>
+                    <label class="col-md-2 control-label">Sắp xếp</label>
+                    <div class="col-md-2" id="hienthi_html">
                         <input type="number" name="orders" id="orders" value="<?php echo isset($orders) ? $orders : 0; ?>" class="form-control"/> 
                     </div>
                 </div>

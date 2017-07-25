@@ -127,11 +127,18 @@ if($users->isLoggedIn() && !$users->is_admin() && !$users->is_manager()){
                         <span>TIN TỨC</span>
                     </a>
                 </li>
-                <li>
+                <li class="has-sub">
                     <a href="tours.html">
                         <i class="fa fa-video-camera"></i> 
+                        <b class="caret pull-right"></b>
                         <span>TOURS</span>
                     </a>
+                    <ul class="sub-menu">
+                    	<li class="divider"></li>
+                        <li><a href="tours.html">Danh sách Tours</a></li>
+                        <li class="divider"></li>
+                        <li><a href="lichkhoihanh.html">Lập lịch khởi hành</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="booking.html">
