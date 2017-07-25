@@ -47,6 +47,11 @@ class Tours {
 		return $this->_collection->find($query)->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
 	}
 
+	public function get_tour_stick(){
+		$query = array('hienthi' => 1, 'stick' => 1);
+		return $this->_collection->find($query)->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);
+	}	
+
 	public function get_diemdenmoi(){
 		$query = array('id_danhmucdiemden' => array('$exists' => true), 'hienthi' => 1);
 		return $this->_collection->find()->sort(array('orders' => 1, 'date_post'=>-1))->limit(3);

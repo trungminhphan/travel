@@ -1,9 +1,9 @@
 <?php
 require_once('header.php');
 $tours = new Tours(); $banner = new Banner(); $b = $banner->get_one();
-$danhmucdiemden = new DanhMucDiemDen();$danhmuctour = new DanhMucTour();
+$danhmucdiemden = new DanhMucDiemDen();$danhmuctour = new DanhMucTour();$lichkhoihanh = new LichKhoiHanh();
 $tours_list = $tours->get_all_list_show();
-$diemden_list = $tours->get_diemdenmoi();
+$diemden_list = $tours->get_tour_stick();
 $danhmucdiemden_list = $danhmucdiemden->get_all_list();
 $danhmuctour_list = $danhmuctour->get_all_list();
 ?>
@@ -17,8 +17,13 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 			<?php foreach($b['banner'] as $k => $v){
+				$file = $target_banner .  $v['aliasname'];
+				$thumb = $target_banner . 'thumb/' .  $v['aliasname'];
+				if(!file_exists($thumb)){
+					resize_image($file , null, 1920, 500, false , $thumb , false , false ,100 );
+				}
 				echo '<div class="item '.($k==0 ? 'active' :'').'">
-					<img src="'.$target_banner . $v['aliasname'].'" alt="'.$v['mota'].'">
+					<img src="'.$thumb.'" alt="'.$v['mota'].'">
 					<div class="carousel-caption content-slider">
 						<div class="container">
 						'.($v['mota'] ? '<h2>'.$v['mota'].'</h2>' : '').'
@@ -48,11 +53,12 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 					<ul class="tours products wrapper-tours-slider">
 						<?php
 						foreach($tours_list as $tour):
-							if($tour['ngaykhoihanh'] && is_array($tour['ngaykhoihanh'])){
-								foreach($tour['ngaykhoihanh'] as $key => $value){
+							$lich = $lichkhoihanh->get_one_condition(array('id_tours' => strval($tour['_id'])));
+							if($lich['ngaykhoihanh'] && is_array($lich['ngaykhoihanh'])){
+								foreach($lich['ngaykhoihanh'] as $key => $value){
 									if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
 										$ngaykhoihanh = date("d/m/Y", $value->sec);
-										$ngayketthuc = date("d/m/Y", $tour['ngayketthuc'][$key]->sec);
+										$ngayketthuc = date("d/m/Y", $lich['ngayketthuc'][$key]->sec);
 										break;
 									}
 								}
@@ -90,18 +96,18 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 											<ul>
 												<?php if(isset($tour['giagiamtour']) && $tour['giagiamtour'] > 0) : ?>
 												<li style="line-height: 15px;">
-													Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
+													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													<span style="color:#ff0000;"><?php echo format_number($tour['giatour']); ?></span>
 												</li>
 												<?php else: ?>
 												<li style="line-height: 15px;">
-													Giá: <span style="font-size:18px;"><?php echo format_number($tour['giatour']); ?></span>
+													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($tour['giatour']); ?></span>
 												</li>
 												<?php endif; ?>
-												<li style="padding-top: 10px;">Khởi hành: <?php echo $ngaykhoihanh; ?></li>
-												<li>Kết thúc: <?php echo $ngayketthuc; ?></li>
-												<li><?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
+												<li style="padding-top: 10px;"><i class="fa fa-plane"></i> Khởi hành: <?php echo $ngaykhoihanh; ?></li>
+												<li><i class="fa fa-reply-all"></i> Kết thúc: <?php echo $ngayketthuc; ?></li>
+												<li><i class="fa fa-tags"></i> <?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
 											</ul>
 										</div>
 									</div>

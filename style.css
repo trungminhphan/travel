@@ -1972,17 +1972,17 @@ input[type=radio]:checked:before {
 }
 
 .item-list-tour .content-list-tour .wrapper_content .content-right li{
-	padding-left: 10px;
+	padding-left: 0px;
 
 }
-.item-list-tour .content-list-tour .wrapper_content .content-right li:before{
-	content: "\f005"; /* FontAwesome Unicode */
+/*.item-list-tour .content-list-tour .wrapper_content .content-right li:before{
+	content: "\f005";
   	font-family: FontAwesome;
   	display: inline-block;
-  	margin-left: -10px; /* same as padding-left set on li */
-  	width: 1.3em; /* same as padding-left set on li */
+  	margin-left: -10px; 
+  	width: 1.3em; 
   	color: #652f8f;
-}
+}*/
 
 .item-list-tour .content-list-tour .wrapper_content .content-right .item_rating {
 	width:         100%;

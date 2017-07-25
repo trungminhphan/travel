@@ -1,7 +1,7 @@
 <?php
 require_once('header.php');
 $danhmuctour->id = $id; $dmt = $danhmuctour->get_one();
-$tours = new Tours();
+$tours = new Tours();$lichkhoihanh = new LichKhoiHanh();
 $query = array('id_danhmuctour' => $id, 'hienthi' => 1);
 $diemden_list = $tours->get_diemdenmoi();
 $tours_list = $tours->get_list_condition($query);
@@ -22,11 +22,12 @@ $tours_list = $tours->get_list_condition($query);
 					<ul class="tours products wrapper-tours-slider">
 						<?php 
 						foreach($tours_list as $tour):
-							if($tour['ngaykhoihanh'] && is_array($tour['ngaykhoihanh'])){
-								foreach($tour['ngaykhoihanh'] as $key => $value){
+							$lich = $lichkhoihanh->get_one_condition(array('id_tours' => strval($tour['_id'])));
+							if($lich['ngaykhoihanh'] && is_array($lich['ngaykhoihanh'])){
+								foreach($lich['ngaykhoihanh'] as $key => $value){
 									if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
 										$ngaykhoihanh = date("d/m/Y", $value->sec);
-										$ngayketthuc = date("d/m/Y", $tour['ngayketthuc'][$key]->sec);
+										$ngayketthuc = date("d/m/Y", $lich['ngayketthuc'][$key]->sec);
 										break;
 									}
 								}
@@ -64,18 +65,18 @@ $tours_list = $tours->get_list_condition($query);
 											<ul>
 												<?php if(isset($tour['giagiamtour']) && $tour['giagiamtour'] > 0) : ?>
 												<li style="line-height: 15px;">
-													Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
+													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													<span style="color:#ff0000;"><?php echo format_number($tour['giatour']); ?></span>
 												</li>
 												<?php else: ?>
 												<li style="line-height: 15px;">
-													Giá: <span style="font-size:18px;"><?php echo format_number($tour['giatour']); ?></span>
+													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($tour['giatour']); ?></span>
 												</li>
 												<?php endif; ?>
-												<li style="padding-top: 10px;">Khởi hành: <?php echo $ngaykhoihanh; ?></li>
-												<li>Kết thúc: <?php echo $ngayketthuc; ?></li>
-												<li><?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
+												<li style="padding-top: 10px;"><i class="fa fa-plane"></i> Khởi hành: <?php echo $ngaykhoihanh; ?></li>
+												<li><i class="fa fa-reply-all"></i> Kết thúc: <?php echo $ngayketthuc; ?></li>
+												<li><i class="fa fa-tags"></i> <?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
 											</ul>
 										</div>
 									</div>
@@ -97,18 +98,28 @@ $tours_list = $tours->get_list_condition($query);
 						<div class="form-block block-after-indent">
 							<h3 class="form-block_title">Tìm kiếm</h3>
 							<div class="form-block__description">Tìm Tour bạn cần tìm kiếm!</div>
-							<form method="get" action="#">
-								<input type="hidden" name="tour_search" value="1">
-								<input type="text" placeholder="Search Tour" value="" name="name_tour">
-								<select name="">
+							<form method="GET" action="search.html">
+								<input type="text" placeholder="Tên Tour" value="" name="tieude" id="tieude">
+								<select name="id_danhmuctour" id="id_danhmuctour">
 									<option value="">Chọn loại Tour</option>
-									<option value="escorted-tour">Tour trong nước</option>
-									<option value="rail-tour">Tour ngoài nước</option>
+									<?php
+				                        if($danhmuctour_list){
+				                            $list_tree = iterator_to_array($danhmuctour_list);
+				                            showCategories($list_tree);
+				                        }
+				                    ?>
 								</select>
-								<select name="">
-									<option value="0">Điểm đến</option>
+								<select name="id_danhmucdiemden" id="danhmucdiemden"> 
+									<option value="">Điểm đến</option>
+									 <?php
+				                        if($danhmucdiemden_list){
+				                            $list_tree = iterator_to_array($danhmucdiemden_list);
+				                            showCategories($list_tree);
+				                        }
+				                    ?>
 								</select>
-								<input type="text" placeholder="Ngày khởi hành" value="" name="name_tour">
+
+								<input type="text" placeholder="Ngày khởi hành" value="" class="datepicker" name="ngaykhoihanh" id="ngaykhoihanh" data-provide="datepicker" data-date-format="dd/mm/yyyy"/>
 								<button type="submit"><i class="fa fa-search"></i> Tìm</button>
 							</form>
 						</div>

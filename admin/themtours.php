@@ -234,21 +234,21 @@ if($id && $act == 'edit'){
     </div>
 </div>
 </form>
-<div id="date_html" style="display: none;">
+<!--<div id="date_html" style="display: none;">
     <div class="form-group">
         <label class="col-md-3 control-label">Ngày khởi hành</label>
         <div class="col-md-3">
-            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo date("d/m/Y"); ?>"/>
+            <input type="text" name="ngaykhoihanh[]" placeholder="Ngày khởi hành"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php //echo date("d/m/Y"); ?>"/>
         </div>
         <label class="col-md-3 control-label">Ngày kết thúc</label>
         <div class="col-md-3">
             <div class="input-group">
-                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php echo date("d/m/Y"); ?>"/>
+                <input type="text" name="ngayketthuc[]" id="ngayketthuc" placeholder="Ngày kết thúc"  class="form-control ngaythangnam" data-date-format="dd/mm/yyyy" data-inputmask="'alias': 'date'" data-parsley-required="true" value="<?php //echo date("d/m/Y"); ?>"/>
                 <span class="input-group-addon"><a href="#" class="remove_date" onclick="return false;"><i class="fa fa-trash"></i></a></span>
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <div style="clear:both;"></div>
 <?php require_once('footer.php'); ?>
 <!-- ================== BEGIN PAGE LEVEL JS ================== -->
@@ -269,7 +269,7 @@ if($id && $act == 'edit'){
         $(".select2").select2();
         $(".ngaythangnam").datepicker({todayHighlight:!0});
         $(".ngaythangnam").inputmask();
-        $("#add_date").click(function(){
+        /*$("#add_date").click(function(){
             var html = $("#date_html").html();
             $("#ngaydulich").append(html);
             $(".ngaythangnam").datepicker({todayHighlight:!0});
@@ -282,7 +282,7 @@ if($id && $act == 'edit'){
         $(".remove_date").click(function(){
             var _this = $(this);
             _this.parents(".form-group").remove();
-        });
+        });*/
         <?php if(isset($msg) && $msg) : ?>
         $.gritter.add({
             title:"Thông báo !",

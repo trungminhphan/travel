@@ -1,6 +1,8 @@
 <?php 
 require_once('header.php');
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
+$lichkhoihanh = new LichKhoiHanh();$tours = new Tours();
+$list = $lichkhoihanh->get_all_list();
 ?>
 <link href="assets/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" />
 <link href="assets/plugins/DataTables/media/css/dataTables.bootstrap.min.css" rel="stylesheet" />
@@ -17,7 +19,50 @@ $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
         </div>
         <div class="panel-body">
         	<a href="themlichkhoihanh.html" class="btn btn-primary m-b-10"><i class="fa fa-plus"></i> Thêm mới</a>
-        	
+        	<table id="data-table" class="table table-striped table-bordered table-hovered">
+            <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th width="200">Ngày khởi hành - Kết thúc</th>
+                        <th>Tours</th>
+                        <th class="text-center"><i class="fa fa-trash"></i></th>
+                        <th class="text-center"><i class="fa fa-pencil"></i></th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                if($list){
+                    $i = 1;
+                    foreach ($list as $ds) {
+                        echo '<tr>';
+                        echo '<td style="vertical-align:middle;" class="text-center">'.$i.'</td>';
+                        echo '<td style="vertical-align:middle;">';
+                        if($ds['ngaykhoihanh']){
+                            echo '<ul style="padding:0px 0px 0px 10px;">';
+                            foreach ($ds['ngaykhoihanh'] as $key => $value) {
+                                echo '<li>'.date("d/m/Y", $value->sec). ' --- '.date("d/m/Y", $ds['ngayketthuc'][$key]->sec).'</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        echo '</td>';
+                        echo '<td style="vertical-align:middle;">';
+                        if($ds['id_tours']){
+                            echo '<ul style="padding:0px 0px 0px 10px;">';
+                            foreach ($ds['id_tours'] as $key => $value) {
+                                $tours->id = $value; $t = $tours->get_one();
+                                echo '<li>'.$t['tieude'].'</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        echo '</td>';
+                        echo '<td class="text-center" style="vertical-align:middle;"><a href="themlichkhoihanh.html?id='.$ds['_id'].'&act=del" onclick="return confirm(\'Chắc chắn muốn xóa?\')"><i class="fa fa-trash"></i></a></td>';
+                        echo '<td class="text-center" style="vertical-align:middle;"><a href="themlichkhoihanh.html?id='.$ds['_id'].'&act=edit"><i class="fa fa-pencil"></i></a></td>';
+                        echo '</tr>';$i++;
+                    }
+                }
+                ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

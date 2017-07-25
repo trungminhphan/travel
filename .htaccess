@@ -1,3 +1,4 @@
 RewriteEngine on
 ErrorDocument 404 /404.html
 RewriteRule ^(.+)\.html$ $1.php
+#RewriteRule ^tours/([^/\.]+)/?$ tours.php?id=$1 [L]

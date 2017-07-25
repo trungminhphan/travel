@@ -3,8 +3,8 @@ require_once('header.php');
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $book = isset($_GET['book']) ? $_GET['book'] : '';
 $tours = new Tours();$tours->id = $id; $t = $tours->get_one();
-$danhmuctour = new DanhMucTour();
-$diemden_list = $tours->get_diemdenmoi();
+$danhmuctour = new DanhMucTour();$lichkhoihanh = new LichKhoiHanh();
+$diemden_list = $tours->get_tour_stick();
 ?>
 <script type="text/javascript" src="assets/js/html5.messages.js"></script>
 <div class="site wrapper-content">
@@ -41,11 +41,12 @@ $diemden_list = $tours->get_diemdenmoi();
 								<?php endif; ?>
 								<?php
 								$ngaykhoihanh = ''; $ngayketthuc='';
-								if($t['ngaykhoihanh'] && is_array($t['ngaykhoihanh'])){
-									foreach($t['ngaykhoihanh'] as $key => $value){
+								$lich = $lichkhoihanh->get_one_condition(array('id_tours' => strval($t['_id'])));
+								if($lich['ngaykhoihanh'] && is_array($lich['ngaykhoihanh'])){
+									foreach($lich['ngaykhoihanh'] as $key => $value){
 										if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
 											$ngaykhoihanh = date("d/m/Y", $value->sec);
-											$ngayketthuc = date("d/m/Y", $t['ngayketthuc'][$key]->sec);
+											$ngayketthuc = date("d/m/Y", $lich['ngayketthuc'][$key]->sec);
 											break;
 										}
 									}
@@ -126,14 +127,14 @@ $diemden_list = $tours->get_diemdenmoi();
 											</thead>
 											<tbody>
 											<?php
-											if(is_array($t['ngaykhoihanh']) && is_array($t['ngayketthuc'])){
+											if(is_array($lich['ngaykhoihanh']) && is_array($lich['ngayketthuc'])){
 												$i = 1;
-												foreach($t['ngaykhoihanh'] as $key => $value){
+												foreach($lich['ngaykhoihanh'] as $key => $value){
 													echo '
 														<tr>
 															<td align="center">'.$i.'</td>
 															<td align="center">'.date("d/m/Y", $value->sec).'</td>
-															<td align="center">'.date("d/m/Y", $t['ngayketthuc'][$key]->sec).'</td>
+															<td align="center">'.date("d/m/Y", $lich['ngayketthuc'][$key]->sec).'</td>
 														</tr>
 													';$i++;
 												}
@@ -141,8 +142,8 @@ $diemden_list = $tours->get_diemdenmoi();
 												echo '
 													<tr>
 														<td align="center">1</td>
-														<td align="center">'.date("d/m/Y", $t['ngaykhoihanh']->sec).'</td>
-														<td align="center">'.date("d/m/Y", $t['ngayketthuc']->sec).'</td>
+														<td align="center">'.date("d/m/Y").'</td>
+														<td align="center">'.date("d/m/Y").'</td>
 													</tr>
 												';
 											}
@@ -162,11 +163,12 @@ $diemden_list = $tours->get_diemdenmoi();
 							<ul class="tours products wrapper-tours-slider">
 							<?php
 							foreach ($relates as $r) {
-								if($r['ngaykhoihanh'] && is_array($r['ngaykhoihanh'])){
-									foreach($r['ngaykhoihanh'] as $key => $value){
+								$rlich = $lichkhoihanh->get_one_condition(array('id_tours' => strval($r['_id'])));
+								if($rlich['ngaykhoihanh'] && is_array($rlich['ngaykhoihanh'])){
+									foreach($rlich['ngaykhoihanh'] as $key => $value){
 										if(date("Y-m-d", $value->sec) >= date("Y-m-d")){
 											$ngaykhoihanh = date("d/m/Y", $value->sec);
-											$ngayketthuc = date("d/m/Y", $r['ngayketthuc'][$key]->sec);
+											$ngayketthuc = date("d/m/Y", $rlich['ngayketthuc'][$key]->sec);
 											break;
 										}
 									}
@@ -204,18 +206,18 @@ $diemden_list = $tours->get_diemdenmoi();
 											<ul>
 												<?php if(isset($r['giagiamtour']) && $r['giagiamtour'] > 0) : ?>
 												<li style="line-height: 15px;">
-													Giá: <span style="font-size:18px;"><?php echo format_number($r['giagiamtour']); ?></span>
+													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($r['giagiamtour']); ?></span>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													<span style="color:#ff0000;"><?php echo format_number($r['giatour']); ?></span>
 												</li>
 												<?php else: ?>
 												<li style="line-height: 15px;">
-													Giá: <span style="font-size:18px;"><?php echo format_number($r['giatour']); ?></span>
+													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($r['giatour']); ?></span>
 												</li>
 												<?php endif; ?>
-												<li style="padding-top: 10px;">Khởi hành: <?php echo $ngaykhoihanh; ?></li>
-												<li>Kết thúc: <?php echo $ngayketthuc; ?></li>
-												<li><?php echo $danhmuctour->get_tours($r['id_danhmuctour']); ?></li>
+												<li style="padding-top: 10px;"><i class="fa fa-plane"></i> Khởi hành: <?php echo $ngaykhoihanh; ?></li>
+												<li><i class="fa fa-reply-all"></i> Kết thúc: <?php echo $ngayketthuc; ?></li>
+												<li><i class="fa fa-tags"></i> <?php echo $danhmuctour->get_tours($r['id_danhmuctour']); ?></li>
 											</ul>
 										</div>
 									</div>
