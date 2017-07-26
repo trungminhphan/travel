@@ -59,8 +59,8 @@ $tours_list = $tours->get_list_condition($q);
 									}
 								}
 							} else {
-								$ngaykhoihanh = date("d/m/Y", $tour['ngaykhoihanh']->sec);
-								$ngayketthuc = date("d/m/Y", $tour['ngayketthuc']->sec);
+								$ngaykhoihanh = date("d/m/Y");
+								$ngayketthuc = date("d/m/Y");
 							}
 							if($tour['hinhanh'][0]['aliasname']){
 								$file = $target_images . $tour['hinhanh'][0]['aliasname'];
@@ -98,7 +98,7 @@ $tours_list = $tours->get_list_condition($q);
 												<li style="line-height: 15px;">
 													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<span style="color:#ff0000;"><?php echo format_number($tour['giatour']); ?></span>
+													<span style="color:#ff0000;"><strike><?php echo format_number($tour['giatour']); ?></strike></span>
 												</li>
 												<?php else: ?>
 												<li style="line-height: 15px;">
@@ -194,4 +194,3 @@ $tours_list = $tours->get_list_condition($q);
 	<?php endif; ?>
 </div>
 <?php require_once('footer.php'); ?>
-

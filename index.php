@@ -63,8 +63,8 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 									}
 								}
 							} else {
-								$ngaykhoihanh = date("d/m/Y", $tour['ngaykhoihanh']->sec);
-								$ngayketthuc = date("d/m/Y", $tour['ngayketthuc']->sec);
+								$ngaykhoihanh = date("d/m/Y");
+								$ngayketthuc = date("d/m/Y");
 							}
 							if($tour['hinhanh'][0]['aliasname']){
 								$file = $target_images . $tour['hinhanh'][0]['aliasname'];
@@ -98,7 +98,7 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 												<li style="line-height: 15px;">
 													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($tour['giagiamtour']); ?></span>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<span style="color:#ff0000;"><?php echo format_number($tour['giatour']); ?></span>
+													<span style="color:#ff0000;"><strike><?php echo format_number($tour['giatour']); ?></strike></span>
 												</li>
 												<?php else: ?>
 												<li style="line-height: 15px;">
@@ -109,6 +109,9 @@ $danhmuctour_list = $danhmuctour->get_all_list();
 												<li><i class="fa fa-reply-all"></i> Kết thúc: <?php echo $ngayketthuc; ?></li>
 												<li><i class="fa fa-tags"></i> <?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
 											</ul>
+											<?php if($users->isLoggedIn() && $users->is_admin()): ?>
+												<a href="admin/themtours.html?id=<?php echo $tour['_id']; ?>&act=edit&url=<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-success">Edit</a> 
+											<?php endif; ?>
 										</div>
 									</div>
 								</div>

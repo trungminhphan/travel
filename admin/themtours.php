@@ -3,6 +3,7 @@ require_once('header.php');
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
+$url = isset($_GET['url']) ? $_GET['url'] : '';
 $tours = new Tours();
 $danhmuctours = new DanhMucTour();$danhmucdiemden = new DanhMucDiemDen();
 if($id && $act=='del'){
@@ -25,6 +26,7 @@ if(isset($_POST['submit'])){
     $id_danhmuctour = isset($_POST['id_danhmuctour']) ? $_POST['id_danhmuctour'] : '';
     $id_danhmucdiemden = isset($_POST['id_danhmucdiemden']) ? $_POST['id_danhmucdiemden'] : '';
     $act = isset($_POST['act']) ? $_POST['act'] : '';
+    $url = isset($_POST['url']) ? $_POST['url'] : '';
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
     $giatour = isset($_POST['giatour']) ? $_POST['giatour'] : '';
     $giagiamtour = isset($_POST['giagiamtour']) ? $_POST['giagiamtour'] : '';
@@ -75,9 +77,15 @@ if(isset($_POST['submit'])){
     $tours->orders = $orders;
     if($act == 'edit'){
         $tours->id = $id;
-        if($tours->edit()) transfers_to('tours.html?msg=Chỉnh sửa thành công');
+        if($tours->edit()){
+            if($url) transfers_to($url);
+            else transfers_to('tours.html?msg=Chỉnh sửa thành công');
+        } 
     } else {
-        if($tours->insert()) transfers_to('tours.html?msg=Thêm thành công');
+        if($tours->insert()){
+            if($url) transfers_to($url);
+            else transfers_to('tours.html?msg=Thêm thành công');
+        }
     }
 }
 
@@ -150,6 +158,7 @@ if($id && $act == 'edit'){
                     <div class="col-md-9">
                         <input type="hidden" name="id" id="id" value="<?php echo isset($id) ? $id : '';?>">
                         <input type="hidden" name="act" id="act" value="<?php echo isset($act) ? $act : ''; ?>">
+                        <input type="hidden" name="url" id="url" value="<?php echo isset($url) ? $url : ''; ?>">
                         <input class="form-control" type="text" id="tieude" name="tieude" placeholder="Tiêu đề" data-parsley-required="true" value="<?php echo isset($tieude) ? $tieude : ''; ?>" />
                     </div>
                 </div>

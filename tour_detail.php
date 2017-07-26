@@ -32,6 +32,11 @@ $diemden_list = $tours->get_tour_stick();
 							</div>
 						</div>
 						<div class="tour_after_title" style="text-align:justify;">
+							<?php if($users->isLoggedIn() && $users->is_admin()): ?>
+								<div style="clear:both; text-align:right;">
+									<a href="admin/themtours.html?id=<?php echo $t['_id']; ?>&act=edit&url=<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-success">Edit</a> 
+								</div>
+							<?php endif; ?>
 							<?php echo $t['mota']; ?>
 							<p style="margin-top:20px;">
 								<?php if(isset($t['giagiamtour']) && $t['giagiamtour'] > 0) : ?>
@@ -51,8 +56,8 @@ $diemden_list = $tours->get_tour_stick();
 										}
 									}
 								} else {
-									$ngaykhoihanh = date("d/m/Y", $t['ngaykhoihanh']->sec);
-									$ngayketthuc = date("d/m/Y", $t['ngayketthuc']->sec);
+									$ngaykhoihanh = date("d/m/Y");
+									$ngayketthuc = date("d/m/Y");
 								}
 								?>
 							</p>
@@ -173,8 +178,8 @@ $diemden_list = $tours->get_tour_stick();
 										}
 									}
 								} else {
-									$ngaykhoihanh = date("d/m/Y", $r['ngaykhoihanh']->sec);
-									$ngayketthuc = date("d/m/Y", $r['ngayketthuc']->sec);
+									$ngaykhoihanh = date("d/m/Y");
+									$ngayketthuc = date("d/m/Y");
 								}
 								if($r['hinhanh'][0]['aliasname']){
 									$file = $target_images . $r['hinhanh'][0]['aliasname'];
@@ -208,7 +213,7 @@ $diemden_list = $tours->get_tour_stick();
 												<li style="line-height: 15px;">
 													<i class="fa fa-money"></i> Giá: <span style="font-size:18px;"><?php echo format_number($r['giagiamtour']); ?></span>
 													&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<span style="color:#ff0000;"><?php echo format_number($r['giatour']); ?></span>
+													<span style="color:#ff0000;"><strike><?php echo format_number($r['giatour']); ?></strike></span>
 												</li>
 												<?php else: ?>
 												<li style="line-height: 15px;">
