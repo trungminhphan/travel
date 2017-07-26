@@ -15,7 +15,10 @@ if($id && $act=='del'){
             }
         }
     }
-    if($tours->delete()) transfers_to('tours.html?msg=Xóa thành công!');
+    if($tours->delete()){
+        if($url) transfers_to($url);
+        else transfers_to('tours.html?msg=Xóa thành công!');
+    }
 }
 $list = $tours->get_all_list();
 $danhmuctours_list = $danhmuctours->get_all_list();
