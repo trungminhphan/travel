@@ -78,6 +78,9 @@ $tours_list = $tours->get_list_condition($query);
 												<li><i class="fa fa-reply-all"></i> Kết thúc: <?php echo $ngayketthuc; ?></li>
 												<li><i class="fa fa-tags"></i> <?php echo $danhmuctour->get_tours($tour['id_danhmuctour']); ?></li>
 											</ul>
+											<?php if($users->isLoggedIn() && $users->is_admin()): ?>
+												<a href="admin/themtours.html?id=<?php echo $tour['_id']; ?>&act=edit&url=<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-success">Edit</a> 
+											<?php endif; ?>
 										</div>
 									</div>
 								</div>

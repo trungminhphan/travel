@@ -2,7 +2,6 @@
 require_once('header.php');
 $tuvanvisa = new TuVanViSa();
 $tuvanvisa_list = $tuvanvisa->get_all_list();
-
 ?>
 <div class="site wrapper-content">
 	<div class="top_site_main" style="background-image:url(images/banner/top-heading.jpg);">
@@ -18,7 +17,7 @@ $tuvanvisa_list = $tuvanvisa->get_all_list();
 					<div class="wrapper-blog-content">
 					<?php
 					foreach($tuvanvisa_list as $tv){
-						if($tv['hinhanh'][0]['aliasname']){
+						if(isset($tv['hinhanh'][0]['aliasname']) && $tv['hinhanh'][0]['aliasname']){
 								$file = $target_images . $tv['hinhanh'][0]['aliasname'];
 								$thumb = $target_images . '370x260/' . $tv['hinhanh'][0]['aliasname'];
 								if(!file_exists($thumb)){
@@ -43,8 +42,11 @@ $tuvanvisa_list = $tuvanvisa->get_all_list();
 									</div>
 								</header>
 								<div class="entry-desc">
-									'.$tv['mota'].'
-								</div>
+									'.$tv['mota'];
+								if($users->isLoggedIn() && $users->is_admin()):
+									echo '<br /><a href="admin/themtuvanvisa.html?id='.$tv['_id'].'&act=edit&url='.$_SERVER['REQUEST_URI'].'" class="btn btn-success">Edit</a>';
+								endif;
+								echo '</div>
 							</div>
 						</article>';
 					}

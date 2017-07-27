@@ -19,7 +19,7 @@ $danhmuctours_list = $danhmuctours->get_all_list();
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                     <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
                 </div>
-                <h4 class="panel-title"><i class="fa fa-gears"></i> Danh sách Tours</h4>
+                <h4 class="panel-title"><i class="fa fa-gears"></i> Danh sách Tours STICK</h4>
             </div>
             <div class="panel-body">
             <a href="themtours.html&url=<?php echo $_SERVER['REQUEST_URI']; ?>" class="btn btn-primary m-b-10" id="themmoi"><i class="fa fa-plus"></i> Thêm mới</a>

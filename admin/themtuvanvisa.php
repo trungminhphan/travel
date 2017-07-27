@@ -3,6 +3,7 @@ require_once('header.php');
 $msg = isset($_GET['msg']) ? $_GET['msg'] : '';
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $act = isset($_GET['act']) ? $_GET['act'] : '';
+$url = isset($_GET['url']) ? $_GET['url'] : '';
 $tuvanvisa = new TuVanViSa();
 if($id && $act=='del'){
     $tuvanvisa->id = $id; $t = $tuvanvisa->get_one();
@@ -29,6 +30,7 @@ if($id && $act == 'edit'){
 if(isset($_POST['submit'])){
     $id = isset($_POST['id']) ? $_POST['id'] : '';
     $act = isset($_POST['act']) ? $_POST['act'] : '';
+    $url = isset($_POST['url']) ? $_POST['url'] : '';
     $tieude = isset($_POST['tieude']) ? $_POST['tieude'] : '';
     $mota = isset($_POST['mota']) ? $_POST['mota'] : '';
     $noidung = isset($_POST['noidung']) ? $_POST['noidung'] : '';
@@ -56,9 +58,15 @@ if(isset($_POST['submit'])){
 
     if($act == 'edit'){
         $tuvanvisa->id = $id;
-        if($tuvanvisa->edit()) transfers_to('tuvanvisa.html?msg=Chỉnh sửa thành công');
+        if($tuvanvisa->edit()){
+            if($url) transfers_to($url);
+            else transfers_to('tuvanvisa.html?msg=Chỉnh sửa thành công');
+        }
     } else {
-        if($tuvanvisa->insert()) transfers_to('tuvanvisa.html?msg=Thêm thành công');
+        if($tuvanvisa->insert()){
+            if($url) transfers_to($url);
+            else transfers_to('tuvanvisa.html?msg=Thêm thành công');
+        }
     }
 }
 ?>
@@ -72,6 +80,7 @@ if(isset($_POST['submit'])){
 <link href="assets/plugins/jquery-file-upload/css/jquery.fileupload.css" rel="stylesheet" />
 <link href="assets/plugins/jquery-file-upload/css/jquery.fileupload-ui.css" rel="stylesheet" />
 <form action="<?php echo $_SERVER['REQUEST_URI']; ?>" method="POST" class="form-horizontal" data-parsley-validate="true" name="bannerform" id="tintucform" enctype="multipart/form-data">
+<input type="hidden" name="url" id="url" value="<?php echo isset($url) ? $url : ''; ?>">
 <div class="row">
 	<div class="col-md-12">
 		<div class="panel panel-primary">
